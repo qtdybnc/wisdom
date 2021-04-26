@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.populationMapper">
+  <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.population">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="provinceid" jdbcType="INTEGER" property="provinceid" />
+    <result column="column" jdbcType="VARCHAR" property="column" />
+    <result column="tier" jdbcType="VARCHAR" property="tier" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="p2019" jdbcType="VARCHAR" property="p2019" />
+    <result column="p2020" jdbcType="VARCHAR" property="p2020" />
+    <result column="p2021" jdbcType="VARCHAR" property="p2021" />
+    <result column="p2022" jdbcType="VARCHAR" property="p2022" />
+    <result column="p2023" jdbcType="VARCHAR" property="p2023" />
+    <result column="p2024" jdbcType="VARCHAR" property="p2024" />
+    <result column="p2025" jdbcType="VARCHAR" property="p2025" />
+    <result column="p2026" jdbcType="VARCHAR" property="p2026" />
+    <result column="p2027" jdbcType="VARCHAR" property="p2027" />
+    <result column="p2028" jdbcType="VARCHAR" property="p2028" />
+    <result column="p2029" jdbcType="VARCHAR" property="p2029" />
+    <result column="p2030" jdbcType="VARCHAR" property="p2030" />
+    <result column="p2031" jdbcType="VARCHAR" property="p2031" />
+    <result column="p2032" jdbcType="VARCHAR" property="p2032" />
+    <result column="p2033" jdbcType="VARCHAR" property="p2033" />
+    <result column="p2034" jdbcType="VARCHAR" property="p2034" />
+    <result column="p2035" jdbcType="VARCHAR" property="p2035" />
+    <result column="p2036" jdbcType="VARCHAR" property="p2036" />
+    <result column="p2037" jdbcType="VARCHAR" property="p2037" />
+    <result column="p2038" jdbcType="VARCHAR" property="p2038" />
+    <result column="p2039" jdbcType="VARCHAR" property="p2039" />
+    <result column="p2040" jdbcType="VARCHAR" property="p2040" />
+    <result column="p2041" jdbcType="VARCHAR" property="p2041" />
+    <result column="p2042" jdbcType="VARCHAR" property="p2042" />
+    <result column="p2043" jdbcType="VARCHAR" property="p2043" />
+    <result column="p2044" jdbcType="VARCHAR" property="p2044" />
+    <result column="p2045" jdbcType="VARCHAR" property="p2045" />
+    <result column="p2046" jdbcType="VARCHAR" property="p2046" />
+    <result column="p2047" jdbcType="VARCHAR" property="p2047" />
+    <result column="p2048" jdbcType="VARCHAR" property="p2048" />
+    <result column="p2049" jdbcType="VARCHAR" property="p2049" />
+    <result column="p2050" jdbcType="VARCHAR" property="p2050" />
+    <result column="p2051" jdbcType="VARCHAR" property="p2051" />
+    <result column="p2052" jdbcType="VARCHAR" property="p2052" />
+    <result column="p2053" jdbcType="VARCHAR" property="p2053" />
+    <result column="p2054" jdbcType="VARCHAR" property="p2054" />
+    <result column="p2055" jdbcType="VARCHAR" property="p2055" />
+    <result column="p2056" jdbcType="VARCHAR" property="p2056" />
+    <result column="p2057" jdbcType="VARCHAR" property="p2057" />
+    <result column="p2058" jdbcType="VARCHAR" property="p2058" />
+    <result column="p2059" jdbcType="VARCHAR" property="p2059" />
+    <result column="p2060" jdbcType="VARCHAR" property="p2060" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, provinceid, column, tier, city, p2019, p2020, p2021, p2022, p2023, p2024, p2025, 
+    p2026, p2027, p2028, p2029, p2030, p2031, p2032, p2033, p2034, p2035, p2036, p2037, 
+    p2038, p2039, p2040, p2041, p2042, p2043, p2044, p2045, p2046, p2047, p2048, p2049, 
+    p2050, p2051, p2052, p2053, p2054, p2055, p2056, p2057, p2058, p2059, p2060
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from population
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from population
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhihuilvxing.domain.population">
+    insert into population (id, provinceid, column, 
+      tier, city, p2019, 
+      p2020, p2021, p2022, 
+      p2023, p2024, p2025, 
+      p2026, p2027, p2028, 
+      p2029, p2030, p2031, 
+      p2032, p2033, p2034, 
+      p2035, p2036, p2037, 
+      p2038, p2039, p2040, 
+      p2041, p2042, p2043, 
+      p2044, p2045, p2046, 
+      p2047, p2048, p2049, 
+      p2050, p2051, p2052, 
+      p2053, p2054, p2055, 
+      p2056, p2057, p2058, 
+      p2059, p2060)
+    values (#{id,jdbcType=INTEGER}, #{provinceid,jdbcType=INTEGER}, #{column,jdbcType=VARCHAR}, 
+      #{tier,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{p2019,jdbcType=VARCHAR}, 
+      #{p2020,jdbcType=VARCHAR}, #{p2021,jdbcType=VARCHAR}, #{p2022,jdbcType=VARCHAR}, 
+      #{p2023,jdbcType=VARCHAR}, #{p2024,jdbcType=VARCHAR}, #{p2025,jdbcType=VARCHAR}, 
+      #{p2026,jdbcType=VARCHAR}, #{p2027,jdbcType=VARCHAR}, #{p2028,jdbcType=VARCHAR}, 
+      #{p2029,jdbcType=VARCHAR}, #{p2030,jdbcType=VARCHAR}, #{p2031,jdbcType=VARCHAR}, 
+      #{p2032,jdbcType=VARCHAR}, #{p2033,jdbcType=VARCHAR}, #{p2034,jdbcType=VARCHAR}, 
+      #{p2035,jdbcType=VARCHAR}, #{p2036,jdbcType=VARCHAR}, #{p2037,jdbcType=VARCHAR}, 
+      #{p2038,jdbcType=VARCHAR}, #{p2039,jdbcType=VARCHAR}, #{p2040,jdbcType=VARCHAR}, 
+      #{p2041,jdbcType=VARCHAR}, #{p2042,jdbcType=VARCHAR}, #{p2043,jdbcType=VARCHAR}, 
+      #{p2044,jdbcType=VARCHAR}, #{p2045,jdbcType=VARCHAR}, #{p2046,jdbcType=VARCHAR}, 
+      #{p2047,jdbcType=VARCHAR}, #{p2048,jdbcType=VARCHAR}, #{p2049,jdbcType=VARCHAR}, 
+      #{p2050,jdbcType=VARCHAR}, #{p2051,jdbcType=VARCHAR}, #{p2052,jdbcType=VARCHAR}, 
+      #{p2053,jdbcType=VARCHAR}, #{p2054,jdbcType=VARCHAR}, #{p2055,jdbcType=VARCHAR}, 
+      #{p2056,jdbcType=VARCHAR}, #{p2057,jdbcType=VARCHAR}, #{p2058,jdbcType=VARCHAR}, 
+      #{p2059,jdbcType=VARCHAR}, #{p2060,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhihuilvxing.domain.population">
+    insert into population
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="provinceid != null">
+        provinceid,
+      </if>
+      <if test="column != null">
+        column,
+      </if>
+      <if test="tier != null">
+        tier,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="p2019 != null">
+        p2019,
+      </if>
+      <if test="p2020 != null">
+        p2020,
+      </if>
+      <if test="p2021 != null">
+        p2021,
+      </if>
+      <if test="p2022 != null">
+        p2022,
+      </if>
+      <if test="p2023 != null">
+        p2023,
+      </if>
+      <if test="p2024 != null">
+        p2024,
+      </if>
+      <if test="p2025 != null">
+        p2025,
+      </if>
+      <if test="p2026 != null">
+        p2026,
+      </if>
+      <if test="p2027 != null">
+        p2027,
+      </if>
+      <if test="p2028 != null">
+        p2028,
+      </if>
+      <if test="p2029 != null">
+        p2029,
+      </if>
+      <if test="p2030 != null">
+        p2030,
+      </if>
+      <if test="p2031 != null">
+        p2031,
+      </if>
+      <if test="p2032 != null">
+        p2032,
+      </if>
+      <if test="p2033 != null">
+        p2033,
+      </if>
+      <if test="p2034 != null">
+        p2034,
+      </if>
+      <if test="p2035 != null">
+        p2035,
+      </if>
+      <if test="p2036 != null">
+        p2036,
+      </if>
+      <if test="p2037 != null">
+        p2037,
+      </if>
+      <if test="p2038 != null">
+        p2038,
+      </if>
+      <if test="p2039 != null">
+        p2039,
+      </if>
+      <if test="p2040 != null">
+        p2040,
+      </if>
+      <if test="p2041 != null">
+        p2041,
+      </if>
+      <if test="p2042 != null">
+        p2042,
+      </if>
+      <if test="p2043 != null">
+        p2043,
+      </if>
+      <if test="p2044 != null">
+        p2044,
+      </if>
+      <if test="p2045 != null">
+        p2045,
+      </if>
+      <if test="p2046 != null">
+        p2046,
+      </if>
+      <if test="p2047 != null">
+        p2047,
+      </if>
+      <if test="p2048 != null">
+        p2048,
+      </if>
+      <if test="p2049 != null">
+        p2049,
+      </if>
+      <if test="p2050 != null">
+        p2050,
+      </if>
+      <if test="p2051 != null">
+        p2051,
+      </if>
+      <if test="p2052 != null">
+        p2052,
+      </if>
+      <if test="p2053 != null">
+        p2053,
+      </if>
+      <if test="p2054 != null">
+        p2054,
+      </if>
+      <if test="p2055 != null">
+        p2055,
+      </if>
+      <if test="p2056 != null">
+        p2056,
+      </if>
+      <if test="p2057 != null">
+        p2057,
+      </if>
+      <if test="p2058 != null">
+        p2058,
+      </if>
+      <if test="p2059 != null">
+        p2059,
+      </if>
+      <if test="p2060 != null">
+        p2060,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="provinceid != null">
+        #{provinceid,jdbcType=INTEGER},
+      </if>
+      <if test="column != null">
+        #{column,jdbcType=VARCHAR},
+      </if>
+      <if test="tier != null">
+        #{tier,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="p2019 != null">
+        #{p2019,jdbcType=VARCHAR},
+      </if>
+      <if test="p2020 != null">
+        #{p2020,jdbcType=VARCHAR},
+      </if>
+      <if test="p2021 != null">
+        #{p2021,jdbcType=VARCHAR},
+      </if>
+      <if test="p2022 != null">
+        #{p2022,jdbcType=VARCHAR},
+      </if>
+      <if test="p2023 != null">
+        #{p2023,jdbcType=VARCHAR},
+      </if>
+      <if test="p2024 != null">
+        #{p2024,jdbcType=VARCHAR},
+      </if>
+      <if test="p2025 != null">
+        #{p2025,jdbcType=VARCHAR},
+      </if>
+      <if test="p2026 != null">
+        #{p2026,jdbcType=VARCHAR},
+      </if>
+      <if test="p2027 != null">
+        #{p2027,jdbcType=VARCHAR},
+      </if>
+      <if test="p2028 != null">
+        #{p2028,jdbcType=VARCHAR},
+      </if>
+      <if test="p2029 != null">
+        #{p2029,jdbcType=VARCHAR},
+      </if>
+      <if test="p2030 != null">
+        #{p2030,jdbcType=VARCHAR},
+      </if>
+      <if test="p2031 != null">
+        #{p2031,jdbcType=VARCHAR},
+      </if>
+      <if test="p2032 != null">
+        #{p2032,jdbcType=VARCHAR},
+      </if>
+      <if test="p2033 != null">
+        #{p2033,jdbcType=VARCHAR},
+      </if>
+      <if test="p2034 != null">
+        #{p2034,jdbcType=VARCHAR},
+      </if>
+      <if test="p2035 != null">
+        #{p2035,jdbcType=VARCHAR},
+      </if>
+      <if test="p2036 != null">
+        #{p2036,jdbcType=VARCHAR},
+      </if>
+      <if test="p2037 != null">
+        #{p2037,jdbcType=VARCHAR},
+      </if>
+      <if test="p2038 != null">
+        #{p2038,jdbcType=VARCHAR},
+      </if>
+      <if test="p2039 != null">
+        #{p2039,jdbcType=VARCHAR},
+      </if>
+      <if test="p2040 != null">
+        #{p2040,jdbcType=VARCHAR},
+      </if>
+      <if test="p2041 != null">
+        #{p2041,jdbcType=VARCHAR},
+      </if>
+      <if test="p2042 != null">
+        #{p2042,jdbcType=VARCHAR},
+      </if>
+      <if test="p2043 != null">
+        #{p2043,jdbcType=VARCHAR},
+      </if>
+      <if test="p2044 != null">
+        #{p2044,jdbcType=VARCHAR},
+      </if>
+      <if test="p2045 != null">
+        #{p2045,jdbcType=VARCHAR},
+      </if>
+      <if test="p2046 != null">
+        #{p2046,jdbcType=VARCHAR},
+      </if>
+      <if test="p2047 != null">
+        #{p2047,jdbcType=VARCHAR},
+      </if>
+      <if test="p2048 != null">
+        #{p2048,jdbcType=VARCHAR},
+      </if>
+      <if test="p2049 != null">
+        #{p2049,jdbcType=VARCHAR},
+      </if>
+      <if test="p2050 != null">
+        #{p2050,jdbcType=VARCHAR},
+      </if>
+      <if test="p2051 != null">
+        #{p2051,jdbcType=VARCHAR},
+      </if>
+      <if test="p2052 != null">
+        #{p2052,jdbcType=VARCHAR},
+      </if>
+      <if test="p2053 != null">
+        #{p2053,jdbcType=VARCHAR},
+      </if>
+      <if test="p2054 != null">
+        #{p2054,jdbcType=VARCHAR},
+      </if>
+      <if test="p2055 != null">
+        #{p2055,jdbcType=VARCHAR},
+      </if>
+      <if test="p2056 != null">
+        #{p2056,jdbcType=VARCHAR},
+      </if>
+      <if test="p2057 != null">
+        #{p2057,jdbcType=VARCHAR},
+      </if>
+      <if test="p2058 != null">
+        #{p2058,jdbcType=VARCHAR},
+      </if>
+      <if test="p2059 != null">
+        #{p2059,jdbcType=VARCHAR},
+      </if>
+      <if test="p2060 != null">
+        #{p2060,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhihuilvxing.domain.population">
+    update population
+    <set>
+      <if test="provinceid != null">
+        provinceid = #{provinceid,jdbcType=INTEGER},
+      </if>
+      <if test="column != null">
+        column = #{column,jdbcType=VARCHAR},
+      </if>
+      <if test="tier != null">
+        tier = #{tier,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="p2019 != null">
+        p2019 = #{p2019,jdbcType=VARCHAR},
+      </if>
+      <if test="p2020 != null">
+        p2020 = #{p2020,jdbcType=VARCHAR},
+      </if>
+      <if test="p2021 != null">
+        p2021 = #{p2021,jdbcType=VARCHAR},
+      </if>
+      <if test="p2022 != null">
+        p2022 = #{p2022,jdbcType=VARCHAR},
+      </if>
+      <if test="p2023 != null">
+        p2023 = #{p2023,jdbcType=VARCHAR},
+      </if>
+      <if test="p2024 != null">
+        p2024 = #{p2024,jdbcType=VARCHAR},
+      </if>
+      <if test="p2025 != null">
+        p2025 = #{p2025,jdbcType=VARCHAR},
+      </if>
+      <if test="p2026 != null">
+        p2026 = #{p2026,jdbcType=VARCHAR},
+      </if>
+      <if test="p2027 != null">
+        p2027 = #{p2027,jdbcType=VARCHAR},
+      </if>
+      <if test="p2028 != null">
+        p2028 = #{p2028,jdbcType=VARCHAR},
+      </if>
+      <if test="p2029 != null">
+        p2029 = #{p2029,jdbcType=VARCHAR},
+      </if>
+      <if test="p2030 != null">
+        p2030 = #{p2030,jdbcType=VARCHAR},
+      </if>
+      <if test="p2031 != null">
+        p2031 = #{p2031,jdbcType=VARCHAR},
+      </if>
+      <if test="p2032 != null">
+        p2032 = #{p2032,jdbcType=VARCHAR},
+      </if>
+      <if test="p2033 != null">
+        p2033 = #{p2033,jdbcType=VARCHAR},
+      </if>
+      <if test="p2034 != null">
+        p2034 = #{p2034,jdbcType=VARCHAR},
+      </if>
+      <if test="p2035 != null">
+        p2035 = #{p2035,jdbcType=VARCHAR},
+      </if>
+      <if test="p2036 != null">
+        p2036 = #{p2036,jdbcType=VARCHAR},
+      </if>
+      <if test="p2037 != null">
+        p2037 = #{p2037,jdbcType=VARCHAR},
+      </if>
+      <if test="p2038 != null">
+        p2038 = #{p2038,jdbcType=VARCHAR},
+      </if>
+      <if test="p2039 != null">
+        p2039 = #{p2039,jdbcType=VARCHAR},
+      </if>
+      <if test="p2040 != null">
+        p2040 = #{p2040,jdbcType=VARCHAR},
+      </if>
+      <if test="p2041 != null">
+        p2041 = #{p2041,jdbcType=VARCHAR},
+      </if>
+      <if test="p2042 != null">
+        p2042 = #{p2042,jdbcType=VARCHAR},
+      </if>
+      <if test="p2043 != null">
+        p2043 = #{p2043,jdbcType=VARCHAR},
+      </if>
+      <if test="p2044 != null">
+        p2044 = #{p2044,jdbcType=VARCHAR},
+      </if>
+      <if test="p2045 != null">
+        p2045 = #{p2045,jdbcType=VARCHAR},
+      </if>
+      <if test="p2046 != null">
+        p2046 = #{p2046,jdbcType=VARCHAR},
+      </if>
+      <if test="p2047 != null">
+        p2047 = #{p2047,jdbcType=VARCHAR},
+      </if>
+      <if test="p2048 != null">
+        p2048 = #{p2048,jdbcType=VARCHAR},
+      </if>
+      <if test="p2049 != null">
+        p2049 = #{p2049,jdbcType=VARCHAR},
+      </if>
+      <if test="p2050 != null">
+        p2050 = #{p2050,jdbcType=VARCHAR},
+      </if>
+      <if test="p2051 != null">
+        p2051 = #{p2051,jdbcType=VARCHAR},
+      </if>
+      <if test="p2052 != null">
+        p2052 = #{p2052,jdbcType=VARCHAR},
+      </if>
+      <if test="p2053 != null">
+        p2053 = #{p2053,jdbcType=VARCHAR},
+      </if>
+      <if test="p2054 != null">
+        p2054 = #{p2054,jdbcType=VARCHAR},
+      </if>
+      <if test="p2055 != null">
+        p2055 = #{p2055,jdbcType=VARCHAR},
+      </if>
+      <if test="p2056 != null">
+        p2056 = #{p2056,jdbcType=VARCHAR},
+      </if>
+      <if test="p2057 != null">
+        p2057 = #{p2057,jdbcType=VARCHAR},
+      </if>
+      <if test="p2058 != null">
+        p2058 = #{p2058,jdbcType=VARCHAR},
+      </if>
+      <if test="p2059 != null">
+        p2059 = #{p2059,jdbcType=VARCHAR},
+      </if>
+      <if test="p2060 != null">
+        p2060 = #{p2060,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhihuilvxing.domain.population">
+    update population
+    set provinceid = #{provinceid,jdbcType=INTEGER},
+      column = #{column,jdbcType=VARCHAR},
+      tier = #{tier,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      p2019 = #{p2019,jdbcType=VARCHAR},
+      p2020 = #{p2020,jdbcType=VARCHAR},
+      p2021 = #{p2021,jdbcType=VARCHAR},
+      p2022 = #{p2022,jdbcType=VARCHAR},
+      p2023 = #{p2023,jdbcType=VARCHAR},
+      p2024 = #{p2024,jdbcType=VARCHAR},
+      p2025 = #{p2025,jdbcType=VARCHAR},
+      p2026 = #{p2026,jdbcType=VARCHAR},
+      p2027 = #{p2027,jdbcType=VARCHAR},
+      p2028 = #{p2028,jdbcType=VARCHAR},
+      p2029 = #{p2029,jdbcType=VARCHAR},
+      p2030 = #{p2030,jdbcType=VARCHAR},
+      p2031 = #{p2031,jdbcType=VARCHAR},
+      p2032 = #{p2032,jdbcType=VARCHAR},
+      p2033 = #{p2033,jdbcType=VARCHAR},
+      p2034 = #{p2034,jdbcType=VARCHAR},
+      p2035 = #{p2035,jdbcType=VARCHAR},
+      p2036 = #{p2036,jdbcType=VARCHAR},
+      p2037 = #{p2037,jdbcType=VARCHAR},
+      p2038 = #{p2038,jdbcType=VARCHAR},
+      p2039 = #{p2039,jdbcType=VARCHAR},
+      p2040 = #{p2040,jdbcType=VARCHAR},
+      p2041 = #{p2041,jdbcType=VARCHAR},
+      p2042 = #{p2042,jdbcType=VARCHAR},
+      p2043 = #{p2043,jdbcType=VARCHAR},
+      p2044 = #{p2044,jdbcType=VARCHAR},
+      p2045 = #{p2045,jdbcType=VARCHAR},
+      p2046 = #{p2046,jdbcType=VARCHAR},
+      p2047 = #{p2047,jdbcType=VARCHAR},
+      p2048 = #{p2048,jdbcType=VARCHAR},
+      p2049 = #{p2049,jdbcType=VARCHAR},
+      p2050 = #{p2050,jdbcType=VARCHAR},
+      p2051 = #{p2051,jdbcType=VARCHAR},
+      p2052 = #{p2052,jdbcType=VARCHAR},
+      p2053 = #{p2053,jdbcType=VARCHAR},
+      p2054 = #{p2054,jdbcType=VARCHAR},
+      p2055 = #{p2055,jdbcType=VARCHAR},
+      p2056 = #{p2056,jdbcType=VARCHAR},
+      p2057 = #{p2057,jdbcType=VARCHAR},
+      p2058 = #{p2058,jdbcType=VARCHAR},
+      p2059 = #{p2059,jdbcType=VARCHAR},
+      p2060 = #{p2060,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.Bau1Mapper">
+  <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.Bau1">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cityid" jdbcType="INTEGER" property="cityid" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="Passenger_Vehicle" jdbcType="DOUBLE" property="passengerVehicle" />
+    <result column="Taxi" jdbcType="DOUBLE" property="taxi" />
+    <result column="Light_Duty_Commercial_Vehicle" jdbcType="DOUBLE" property="lightDutyCommercialVehicle" />
+    <result column="Medium_Duty_Bus" jdbcType="DOUBLE" property="mediumDutyBus" />
+    <result column="Large_Duty_Bus" jdbcType="DOUBLE" property="largeDutyBus" />
+    <result column="Heavy_Duty_Commercial_Vehicle" jdbcType="DOUBLE" property="heavyDutyCommercialVehicle" />
+    <result column="Total" jdbcType="DOUBLE" property="total" />
+    <result column="LDV" jdbcType="DOUBLE" property="ldv" />
+    <result column="LDT_LDV" jdbcType="DOUBLE" property="ldtLdv" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cityid, year, Passenger_Vehicle, Taxi, Light_Duty_Commercial_Vehicle, Medium_Duty_Bus, 
+    Large_Duty_Bus, Heavy_Duty_Commercial_Vehicle, Total, LDV, LDT_LDV
+  </sql>
+  <select id="selectBau1" resultMap="BaseResultMap">
+    select id,  year, Passenger_Vehicle, Taxi, Light_Duty_Commercial_Vehicle, Medium_Duty_Bus,
+    Large_Duty_Bus, Heavy_Duty_Commercial_Vehicle, Total, LDV, LDT_LDV from bau1
+  </select>
+  <select id="selectBau1Byfk" resultMap="BaseResultMap">
+    select id,  year, Passenger_Vehicle, Taxi, Light_Duty_Commercial_Vehicle, Medium_Duty_Bus,
+    Large_Duty_Bus, Heavy_Duty_Commercial_Vehicle, Total, LDV, LDT_LDV from bau1 where cityid = #{cityid}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bau1
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bau1
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhihuilvxing.domain.Bau1">
+    insert into bau1 (id, cityid, year, 
+      Passenger_Vehicle, Taxi, Light_Duty_Commercial_Vehicle, 
+      Medium_Duty_Bus, Large_Duty_Bus, Heavy_Duty_Commercial_Vehicle, 
+      Total, LDV, LDT/LDV)
+    values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, 
+      #{passengerVehicle,jdbcType=DOUBLE}, #{taxi,jdbcType=DOUBLE}, #{lightDutyCommercialVehicle,jdbcType=DOUBLE}, 
+      #{mediumDutyBus,jdbcType=DOUBLE}, #{largeDutyBus,jdbcType=DOUBLE}, #{heavyDutyCommercialVehicle,jdbcType=DOUBLE}, 
+      #{total,jdbcType=DOUBLE}, #{ldv,jdbcType=DOUBLE}, #{ldtLdv,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhihuilvxing.domain.Bau1">
+    insert into bau1
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cityid != null">
+        cityid,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="passengerVehicle != null">
+        Passenger_Vehicle,
+      </if>
+      <if test="taxi != null">
+        Taxi,
+      </if>
+      <if test="lightDutyCommercialVehicle != null">
+        Light_Duty_Commercial_Vehicle,
+      </if>
+      <if test="mediumDutyBus != null">
+        Medium_Duty_Bus,
+      </if>
+      <if test="largeDutyBus != null">
+        Large_Duty_Bus,
+      </if>
+      <if test="heavyDutyCommercialVehicle != null">
+        Heavy_Duty_Commercial_Vehicle,
+      </if>
+      <if test="total != null">
+        Total,
+      </if>
+      <if test="ldv != null">
+        LDV,
+      </if>
+      <if test="ldtLdv != null">
+        LDT/LDV,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cityid != null">
+        #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="passengerVehicle != null">
+        #{passengerVehicle,jdbcType=DOUBLE},
+      </if>
+      <if test="taxi != null">
+        #{taxi,jdbcType=DOUBLE},
+      </if>
+      <if test="lightDutyCommercialVehicle != null">
+        #{lightDutyCommercialVehicle,jdbcType=DOUBLE},
+      </if>
+      <if test="mediumDutyBus != null">
+        #{mediumDutyBus,jdbcType=DOUBLE},
+      </if>
+      <if test="largeDutyBus != null">
+        #{largeDutyBus,jdbcType=DOUBLE},
+      </if>
+      <if test="heavyDutyCommercialVehicle != null">
+        #{heavyDutyCommercialVehicle,jdbcType=DOUBLE},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="ldv != null">
+        #{ldv,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtLdv != null">
+        #{ldtLdv,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhihuilvxing.domain.Bau1">
+    update bau1
+    <set>
+      <if test="cityid != null">
+        cityid = #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="passengerVehicle != null">
+        Passenger_Vehicle = #{passengerVehicle,jdbcType=DOUBLE},
+      </if>
+      <if test="taxi != null">
+        Taxi = #{taxi,jdbcType=DOUBLE},
+      </if>
+      <if test="lightDutyCommercialVehicle != null">
+        Light_Duty_Commercial_Vehicle = #{lightDutyCommercialVehicle,jdbcType=DOUBLE},
+      </if>
+      <if test="mediumDutyBus != null">
+        Medium_Duty_Bus = #{mediumDutyBus,jdbcType=DOUBLE},
+      </if>
+      <if test="largeDutyBus != null">
+        Large_Duty_Bus = #{largeDutyBus,jdbcType=DOUBLE},
+      </if>
+      <if test="heavyDutyCommercialVehicle != null">
+        Heavy_Duty_Commercial_Vehicle = #{heavyDutyCommercialVehicle,jdbcType=DOUBLE},
+      </if>
+      <if test="total != null">
+        Total = #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="ldv != null">
+        LDV = #{ldv,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtLdv != null">
+        LDT/LDV = #{ldtLdv,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhihuilvxing.domain.Bau1">
+    update bau1
+    set cityid = #{cityid,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      Passenger_Vehicle = #{passengerVehicle,jdbcType=DOUBLE},
+      Taxi = #{taxi,jdbcType=DOUBLE},
+      Light_Duty_Commercial_Vehicle = #{lightDutyCommercialVehicle,jdbcType=DOUBLE},
+      Medium_Duty_Bus = #{mediumDutyBus,jdbcType=DOUBLE},
+      Large_Duty_Bus = #{largeDutyBus,jdbcType=DOUBLE},
+      Heavy_Duty_Commercial_Vehicle = #{heavyDutyCommercialVehicle,jdbcType=DOUBLE},
+      Total = #{total,jdbcType=DOUBLE},
+      LDV = #{ldv,jdbcType=DOUBLE},
+      LDT/LDV = #{ldtLdv,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

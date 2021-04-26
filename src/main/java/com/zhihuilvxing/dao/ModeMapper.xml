@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.ModeMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.Mode">
+        <id column="modeid" jdbcType="INTEGER" property="modeid" />
+
+        <result column="mode" jdbcType="INTEGER" property="mode"  />
+
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, mode,ev, taxi,urbanBus,roadBus,ldt,hdts,hdt
+  </sql>
+    <select id="selectMode" resultMap="BaseResultMap">
+        select modeid,mode from mode
+    </select>
+</mapper>

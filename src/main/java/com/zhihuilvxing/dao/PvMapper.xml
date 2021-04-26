@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.PvMapper">
+  <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.Pv">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cityid" jdbcType="INTEGER" property="cityid" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="GDP_average_growth" jdbcType="DOUBLE" property="gdpAverageGrowth" />
+    <result column="GDP_average" jdbcType="DOUBLE" property="gdpAverage" />
+    <result column="population_growth" jdbcType="DOUBLE" property="populationGrowth" />
+    <result column="population_forecast" jdbcType="DOUBLE" property="populationForecast" />
+    <result column="private_stock" jdbcType="DOUBLE" property="privateStock" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cityid, year, GDP_average_growth, GDP_average, population_growth, population_forecast, 
+    private_stock
+  </sql>
+  <select id="selectPvByfk" resultMap="BaseResultMap">
+    select id, year, GDP_average_growth, GDP_average, population_growth, population_forecast,
+    private_stock from pv where cityid = #{cityid}
+  </select>
+  <select id="selectPv" resultMap="BaseResultMap">
+    select id, year, GDP_average_growth, GDP_average, population_growth, population_forecast,private_stock from pv
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pv
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pv
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhihuilvxing.domain.Pv">
+    insert into pv (id, cityid, year, 
+      GDP_average_growth, GDP_average, population_growth, 
+      population_forecast, private_stock)
+    values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, 
+      #{gdpAverageGrowth,jdbcType=DOUBLE}, #{gdpAverage,jdbcType=DOUBLE}, #{populationGrowth,jdbcType=DOUBLE}, 
+      #{populationForecast,jdbcType=DOUBLE}, #{privateStock,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhihuilvxing.domain.Pv">
+    insert into pv
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cityid != null">
+        cityid,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="gdpAverageGrowth != null">
+        GDP_average_growth,
+      </if>
+      <if test="gdpAverage != null">
+        GDP_average,
+      </if>
+      <if test="populationGrowth != null">
+        population_growth,
+      </if>
+      <if test="populationForecast != null">
+        population_forecast,
+      </if>
+      <if test="privateStock != null">
+        private_stock,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cityid != null">
+        #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="gdpAverageGrowth != null">
+        #{gdpAverageGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="gdpAverage != null">
+        #{gdpAverage,jdbcType=DOUBLE},
+      </if>
+      <if test="populationGrowth != null">
+        #{populationGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="populationForecast != null">
+        #{populationForecast,jdbcType=DOUBLE},
+      </if>
+      <if test="privateStock != null">
+        #{privateStock,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhihuilvxing.domain.Pv">
+    update pv
+    <set>
+      <if test="cityid != null">
+        cityid = #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="gdpAverageGrowth != null">
+        GDP_average_growth = #{gdpAverageGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="gdpAverage != null">
+        GDP_average = #{gdpAverage,jdbcType=DOUBLE},
+      </if>
+      <if test="populationGrowth != null">
+        population_growth = #{populationGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="populationForecast != null">
+        population_forecast = #{populationForecast,jdbcType=DOUBLE},
+      </if>
+      <if test="privateStock != null">
+        private_stock = #{privateStock,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhihuilvxing.domain.Pv">
+    update pv
+    set cityid = #{cityid,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      GDP_average_growth = #{gdpAverageGrowth,jdbcType=DOUBLE},
+      GDP_average = #{gdpAverage,jdbcType=DOUBLE},
+      population_growth = #{populationGrowth,jdbcType=DOUBLE},
+      population_forecast = #{populationForecast,jdbcType=DOUBLE},
+      private_stock = #{privateStock,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

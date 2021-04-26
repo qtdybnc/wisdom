@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.TaxiMapper">
+  <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.Taxi">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cityid" jdbcType="INTEGER" property="cityid" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="stock" jdbcType="DOUBLE" property="stock" />
+    <result column="sale" jdbcType="DOUBLE" property="sale" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cityid, year, stock, sale
+  </sql>
+  <select id="selectTaxi" resultMap="BaseResultMap">
+    select id,  year, stock, sale from taxi
+  </select>
+  <select id="selectTaxiByfk" resultMap="BaseResultMap">
+    select id,  year, stock, sale from taxi where cityid = #{cityid}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from taxi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from taxi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhihuilvxing.domain.Taxi">
+    insert into taxi (id, cityid, year, 
+      stock, sale)
+    values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, 
+      #{stock,jdbcType=DOUBLE}, #{sale,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhihuilvxing.domain.Taxi">
+    insert into taxi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cityid != null">
+        cityid,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="sale != null">
+        sale,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cityid != null">
+        #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=DOUBLE},
+      </if>
+      <if test="sale != null">
+        #{sale,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhihuilvxing.domain.Taxi">
+    update taxi
+    <set>
+      <if test="cityid != null">
+        cityid = #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=DOUBLE},
+      </if>
+      <if test="sale != null">
+        sale = #{sale,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhihuilvxing.domain.Taxi">
+    update taxi
+    set cityid = #{cityid,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=DOUBLE},
+      sale = #{sale,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

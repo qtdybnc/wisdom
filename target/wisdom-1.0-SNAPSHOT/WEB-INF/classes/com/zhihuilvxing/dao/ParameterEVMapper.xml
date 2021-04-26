@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.ParameterEVMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.ParameterEV">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="ev" jdbcType="INTEGER" property="ev"  />
+        <result column="mode" jdbcType="INTEGER" property="mode"  />
+        <result column="pv" jdbcType="DOUBLE" property="pv"  />
+        <result column="taxi" jdbcType="DOUBLE"  property="taxi" />
+        <result column="urbanBus" jdbcType="DOUBLE"  property="urbanBus" />
+        <result column="roadBus" jdbcType="DOUBLE" property="roadBus"  />
+        <result column="ldt" jdbcType="DOUBLE" property="ldt" />
+        <result column="hdts" jdbcType="DOUBLE" property="hdts" />
+        <result column="hdt" jdbcType="DOUBLE" property="hdt"  />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, modeid,ev, taxi,urbanBus,roadBus,ldt,hdts,hdt
+  </sql>
+    <select id="selectParameterEV" resultMap="BaseResultMap">
+        select ev, pv ,taxi,urbanBus,roadBus,ldt,hdts,hdt from parameterev
+    </select>
+
+    <select id="selectParameterEVByf" resultMap="BaseResultMap">
+        select ev, pv ,taxi,urbanBus,roadBus,ldt,hdts,hdt from parameterev where modeid = #{modeid}
+    </select>
+</mapper>

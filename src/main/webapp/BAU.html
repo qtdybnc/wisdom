@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>智汇绿行</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="/wisdom/favicon.ico"> <link href="/wisdom/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/wisdom/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/wisdom/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/wisdom/static/css/animate.css" rel="stylesheet">
+    <link href="/wisdom/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="/wisdom/static/chart.js"></script>
+    <script src="/wisdom/static/jquery.js"></script>
+    <script src="/wisdom/static/xlsx.full.min.js"></script>
+    <script src="/wisdom/static/FileSaver.js"></script>
+
+</head>
+
+<script type="text/javascript">
+    $(document).ready(function($) {
+
+        $.post("/wisdom/Bau1/selectBau1Byfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#surR").append(
+                    "<tr><td>"+this.year+"</td>" +
+                    "<td>"+this.passengerVehicle+"</td>" +
+                    "<td>"+this.taxi+"</td>" +
+                    "<td>"+this.lightDutyCommercialVehicle+"</td>" +
+                    "<td>"+this.mediumDutyBus+"</td>" +
+                    "<td>"+this.largeDutyBus+"</td>" +
+                    "<td>"+this.heavyDutyCommercialVehicle+"</td>" +
+                    "<td>"+this.total+"</td>" +
+                    "<td>"+this.ldv+"</td>" +
+                    "<td>"+this.ldtLdv+"</td>" +
+                    "</tr>");
+            });
+        });
+
+        $.post("/wisdom/Baumil/selectBaumilByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#roadBus").append(
+                    "<tr><td>"+this.mileage+"</td>" +
+                    "<td>"+this.pv+"</td>" +
+                    "<td>"+this.taxi+"</td>" +
+                    "<td>"+this.ldt+"</td>" +
+                    "<td>"+this.urbanBus+"</td>" +
+                    "<td>"+this.roadBus+"</td>" +
+                    "<td>"+this.hdvTruck+"</td>" +
+                    "</tr>");
+            });
+        });
+        $.post("/wisdom/Bauof/selectBauofByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#three").append(
+                    "<tr><td>"+this.ofPopulationForStage+"</td>" +
+                    "<td>"+this.pvstage0+"</td>" +
+                    "<td>"+this.pvstage1+"</td>" +
+                    "<td>"+this.pvstage2+"</td>" +
+                    "<td>"+this.pvstage3+"</td>" +
+                    "<td>"+this.pvstage4+"</td>" +
+                    "<td>"+this.taxistage0+"</td>" +
+                    "<td>"+this.taxistage1+"</td>" +
+                    "<td>"+this.taxistage2+"</td>" +
+                    "<td>"+this.taxistage3+"</td>" +
+                    "<td>"+this.taxistage4+"</td>" +
+                    "<td>"+this.ldtstage0+"</td>" +
+                    "<td>"+this.ldtstage1+"</td>" +
+                    "<td>"+this.ldtstage2+"</td>" +
+                    "<td>"+this.ldtstage3+"</td>" +
+                    "<td>"+this.ldtstage4+"</td>" +
+                    "<td>"+this.urbanBusstage0+"</span></td>" +
+                    "<td>"+this.urbanBusstage1+"</td>" +
+                    "<td>"+this.urbanBusstage2+"</td>" +
+                    "<td>"+this.urbanBusstage3+"</td>" +
+                    "<td>"+this.urbanBusstage4+"</td>" +
+                    "<td>"+this.roadBusstage0+"</td>" +
+                    "<td>"+this.roadBusstage1+"</td>" +
+                    "<td>"+this.roadBusstage2+"</td>" +
+                    "<td>"+this.roadBusstage3+"</td>" +
+                    "<td>"+this.roadBusstage4+"</td>" +
+                    "<td>"+this.hdtstage0+"</td>" +
+                    "<td>"+this.hdtstage1+"</td>" +
+                    "<td>"+this.hdtstage2+"</td>" +
+                    "<td>"+this.hdtstage3+"</td>" +
+                    "<td>"+this.hdtstage4+"</td>" +
+                    "</tr>");
+            });
+        });
+
+        $.post("/wisdom/Baufe/selectBaufeByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#four").append(
+                    "<tr><td>"+this.feNumbers+"</td>" +
+                    "<td>"+this.pv+"</td>" +
+                    "<td>"+this.taxi+"</td>" +
+                    "<td>"+this.ldt+"</td>" +
+                    "<td>"+this.urbanBus+"</td>" +
+                    "<td>"+this.roadBus+"</td>" +
+                    "<td>"+this.hdv+"</td>" +
+                    "</tr>");
+            });
+        });
+        $.post("/wisdom/Bauev/selectBauevByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#five").append(
+                    "<tr><td>"+this.evNumbers+"</td>" +
+                    "<td>"+this.pvStock+"</td>" +
+                    "<td>"+this.taxi+"</td>" +
+                    "<td>"+this.ldt+"</td>" +
+                    "<td>"+this.urbanBus+"</td>" +
+                    "<td>"+this.roadBus+"</td>" +
+                    "<td>"+this.hdv+"</td>" +
+                    "</tr>");
+            });
+        });
+
+        $.post("/wisdom/Bauco2/selectBauco2Byfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#six").append(
+                    "<tr><td>"+this.co2Emissoins+"</td>" +
+                    "<td>"+this.pv+"</td>" +
+                    "<td>"+this.taxi+"</td>" +
+                    "<td>"+this.ldt+"</td>" +
+                    "<td>"+this.urbanBus+"</td>" +
+                    "<td>"+this.roadBus+"</td>" +
+                    "<td>"+this.hdt+"</td>" +
+                    "<td>"+this.total+"</td>" +
+                    "</tr>");
+            });
+        });
+
+        $.post("/wisdom/Baupd/selectBaupdByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#seven").append(
+                    "<tr><td>"+this.populationDistanceTravelledKm+"</td>" +
+                    "<td>"+this.pv+"</td>" +
+                    "<td>"+this.taxi+"</td>" +
+                    "<td>"+this.ldt+"</td>" +
+                    "<td>"+this.urbanBus+"</td>" +
+                    "<td>"+this.roadBus+"</td>" +
+                    "<td>"+this.hdv+"</td>" +
+                    "</tr>");
+            });
+        });
+
+        const btnCalc = document.getElementById("btnCalc");
+
+        btnCalc.onclick = function() {
+
+            const one_table = document.getElementById("one table");
+            const second_table = document.getElementById("second table");
+            const there_table = document.getElementById("there table");
+            const four_table = document.getElementById("four table");
+            const five_table = document.getElementById("five table");
+            const six_table = document.getElementById("six table");
+            const seven_table = document.getElementById("seven table");
+
+
+            var storage = window.localStorage;
+
+            var PV = JSON.parse(storage.getItem("inventory_PV"));
+
+            one_table.rows[4].cells[1].innerHTML = '<td >' + (PV.pv0 / 100).toFixed(2) + '</td>';
+            one_table.rows[5].cells[1].innerHTML = '<td >' + (PV.pv1 / 100).toFixed(2) + '</td>';
+            one_table.rows[6].cells[1].innerHTML = '<td >' + (PV.pv2 / 100).toFixed(2) + '</td>';
+            one_table.rows[7].cells[1].innerHTML = '<td >' + (PV.pv3 / 100).toFixed(2) + '</td>';
+            one_table.rows[8].cells[1].innerHTML = '<td >' + (PV.pv4 / 100 ).toFixed(2)+ '</td>';
+            one_table.rows[9].cells[1].innerHTML = '<td >' + (PV.pv5 / 100 ).toFixed(2)+ '</td>';
+            one_table.rows[10].cells[1].innerHTML = '<td >' + (PV.pv6 / 100).toFixed(2) + '</td>';
+
+            var Taxi = JSON.parse(storage.getItem("inventory_Taxi"));
+
+            one_table.rows[4].cells[2].innerHTML = '<td >' + (Taxi.taxi0 / 100).toFixed(2) + '</td>';
+            one_table.rows[5].cells[2].innerHTML = '<td >' +( Taxi.taxi1 / 100).toFixed(2) + '</td>';
+            one_table.rows[6].cells[2].innerHTML = '<td >' + (Taxi.taxi2 / 100).toFixed(2) + '</td>';
+            one_table.rows[7].cells[2].innerHTML = '<td >' + (Taxi.taxi3 / 100).toFixed(2) + '</td>';
+            one_table.rows[8].cells[2].innerHTML = '<td >' + (Taxi.taxi4 / 100).toFixed(2) + '</td>';
+            one_table.rows[9].cells[2].innerHTML = '<td >' + (Taxi.taxi5 / 100 ).toFixed(2)+ '</td>';
+            one_table.rows[10].cells[2].innerHTML = '<td >' + (Taxi.taxi6 / 100 ).toFixed(2)+ '</td>';
+
+
+            var LDT = JSON.parse(storage.getItem("inventory_LDT"));
+
+            one_table.rows[4].cells[3].innerHTML = '<td >' +(LDT.ldt0 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[5].cells[3].innerHTML = '<td >' +(LDT.ldt1 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[6].cells[3].innerHTML = '<td >' +(LDT.ldt2 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[7].cells[3].innerHTML = '<td >' +(LDT.ldt3 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[8].cells[3].innerHTML = '<td >' +(LDT.ldt4 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[9].cells[3].innerHTML = '<td >' +(LDT.ldt5 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[10].cells[3].innerHTML = '<td >' +(LDT.ldt6 / 1000000).toFixed(2) + '</td>';
+
+            var Urban = JSON.parse(storage.getItem("inventory_Urban"));
+
+            one_table.rows[4].cells[4].innerHTML = '<td >' + (Urban.urb0 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[5].cells[4].innerHTML = '<td >' + (Urban.urb1 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[6].cells[4].innerHTML = '<td >' + (Urban.urb2 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[7].cells[4].innerHTML = '<td >' + (Urban.urb3 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[8].cells[4].innerHTML = '<td >' + (Urban.urb4 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[9].cells[4].innerHTML = '<td >' + (Urban.urb5 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[10].cells[4].innerHTML = '<td >' + (Urban.urb6 / 1000000).toFixed(2) + '</td>';
+
+
+            var Road = JSON.parse(storage.getItem("inventory_Road"));
+
+            one_table.rows[4].cells[5].innerHTML = '<td >' + (Road.road0 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[5].cells[5].innerHTML = '<td >' + (Road.road1 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[6].cells[5].innerHTML = '<td >' + (Road.road2 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[7].cells[5].innerHTML = '<td >' + (Road.road3 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[8].cells[5].innerHTML = '<td >' + (Road.road4 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[9].cells[5].innerHTML = '<td >' + (Road.road5 / 1000000).toFixed(2) + '</td>';
+            one_table.rows[10].cells[5].innerHTML = '<td >' + (Road.road6 / 1000000 ).toFixed(2)+ '</td>';
+
+
+            var HDTS = JSON.parse(storage.getItem("inventory_HDTS"));
+            var HDT = JSON.parse(storage.getItem("inventory_HDT"));
+
+            one_table.rows[4].cells[6].innerHTML = '<td >' + (HDT.hdt0/ 1000000 + HDTS.hdts0/ 1000000).toFixed(2) + '</td>';
+            one_table.rows[5].cells[6].innerHTML = '<td >' + (HDT.hdt1/ 1000000 + HDTS.hdts1/ 1000000).toFixed(2) + '</td>';
+            one_table.rows[6].cells[6].innerHTML = '<td >' + (HDT.hdt2/ 1000000 + HDTS.hdts2/ 1000000).toFixed(2)  + '</td>';
+            one_table.rows[7].cells[6].innerHTML = '<td >' + (HDT.hdt3/ 1000000 + HDTS.hdts3/ 1000000).toFixed(2)  + '</td>';
+            one_table.rows[8].cells[6].innerHTML = '<td >' + (HDT.hdt4/ 1000000 + HDTS.hdts4/ 1000000).toFixed(2) + '</td>';
+            one_table.rows[9].cells[6].innerHTML = '<td >' + (HDT.hdt5/ 1000000 + HDTS.hdts5/ 1000000).toFixed(2) + '</td>';
+            one_table.rows[10].cells[6].innerHTML = '<td >' + (HDT.hdt6/ 1000000 + HDTS.hdts6/ 1000000).toFixed(2) + '</td>';
+
+            var mil = JSON.parse(storage.getItem("inventory_mil"));
+
+            second_table.rows[1].cells[1].innerHTML = '<td >' + mil.mil_pv1 + '</td>'
+            second_table.rows[2].cells[1].innerHTML = '<td >' + mil.mil_pv2 + '</td>'
+            second_table.rows[3].cells[1].innerHTML = '<td >' + mil.mil_pv3 + '</td>'
+            second_table.rows[4].cells[1].innerHTML = '<td >' + mil.mil_pv4 + '</td>'
+            second_table.rows[5].cells[1].innerHTML = '<td >' + mil.mil_pv5 + '</td>'
+            second_table.rows[6].cells[1].innerHTML = '<td >' + mil.mil_pv6 + '</td>'
+            second_table.rows[7].cells[1].innerHTML = '<td >' + mil.mil_pv7 + '</td>'
+            second_table.rows[1].cells[2].innerHTML = '<td >' + mil.mil_taxi1 + '</td>'
+            second_table.rows[2].cells[2].innerHTML = '<td >' + mil.mil_taxi2 + '</td>'
+            second_table.rows[3].cells[2].innerHTML = '<td >' + mil.mil_taxi3 + '</td>'
+            second_table.rows[4].cells[2].innerHTML = '<td >' + mil.mil_taxi4 + '</td>'
+            second_table.rows[5].cells[2].innerHTML = '<td >' + mil.mil_taxi5 + '</td>'
+            second_table.rows[6].cells[2].innerHTML = '<td >' + mil.mil_taxi6 + '</td>'
+            second_table.rows[7].cells[2].innerHTML = '<td >' + mil.mil_taxi7+ '</td>'
+            second_table.rows[1].cells[3].innerHTML = '<td >' + mil.mil_ldt1 + '</td>'
+            second_table.rows[2].cells[3].innerHTML = '<td >' + mil.mil_ldt2 + '</td>'
+            second_table.rows[3].cells[3].innerHTML = '<td >' + mil.mil_ldt3 + '</td>'
+            second_table.rows[4].cells[3].innerHTML = '<td >' + mil.mil_ldt4 + '</td>'
+            second_table.rows[5].cells[3].innerHTML = '<td >' + mil.mil_ldt5 + '</td>'
+            second_table.rows[6].cells[3].innerHTML = '<td >' + mil.mil_ldt6 + '</td>'
+            second_table.rows[7].cells[3].innerHTML = '<td >' + mil.mil_ldt7+ '</td>'
+            second_table.rows[1].cells[4].innerHTML = '<td >' + mil.mil_urbanBus1 + '</td>'
+            second_table.rows[2].cells[4].innerHTML = '<td >' + mil.mil_urbanBus2  + '</td>'
+            second_table.rows[3].cells[4].innerHTML = '<td >' + mil.mil_urbanBus3 + '</td>'
+            second_table.rows[4].cells[4].innerHTML = '<td >' + mil.mil_urbanBus4 + '</td>'
+            second_table.rows[5].cells[4].innerHTML = '<td >' + mil.mil_urbanBus5 + '</td>'
+            second_table.rows[6].cells[4].innerHTML = '<td >' + mil.mil_urbanBus6+ '</td>'
+            second_table.rows[7].cells[4].innerHTML = '<td >' + mil.mil_urbanBus7+ '</td>'
+            second_table.rows[1].cells[5].innerHTML = '<td >' + mil.mil_roadBus1 + '</td>'
+            second_table.rows[2].cells[5].innerHTML = '<td >' + mil.mil_roadBus2+ '</td>'
+            second_table.rows[3].cells[5].innerHTML = '<td >' + mil.mil_roadBus3 + '</td>'
+            second_table.rows[4].cells[5].innerHTML = '<td >' + mil.mil_roadBus4 + '</td>'
+            second_table.rows[5].cells[5].innerHTML = '<td >' + mil.mil_roadBus5 + '</td>'
+            second_table.rows[6].cells[5].innerHTML = '<td >' + mil.mil_roadBus6 + '</td>'
+            second_table.rows[7].cells[5].innerHTML = '<td >' + mil.mil_roadBus7 + '</td>'
+            second_table.rows[1].cells[6].innerHTML = '<td >' + mil.mil_hdv1+ '</td>'
+            second_table.rows[2].cells[6].innerHTML = '<td >' + mil.mil_hdv2 + '</td>'
+            second_table.rows[3].cells[6].innerHTML = '<td >' + mil.mil_hdv3 + '</td>'
+            second_table.rows[4].cells[6].innerHTML = '<td >' + mil.mil_hdv4 + '</td>'
+            second_table.rows[5].cells[6].innerHTML = '<td >' + mil.mil_hdv5 + '</td>'
+            second_table.rows[6].cells[6].innerHTML = '<td >' + mil.mil_hdv6 + '</td>'
+            second_table.rows[7].cells[6].innerHTML = '<td >' + mil.mil_hdv7 + '</td>'
+
+            var fe = JSON.parse(storage.getItem("inventory_fe"));
+
+            there_table.rows[1].cells[1].innerHTML = '<td >' + fe.fe_pv1 + '</td>'
+            there_table.rows[2].cells[1].innerHTML = '<td >' + fe.fe_pv2 + '</td>'
+            there_table.rows[3].cells[1].innerHTML = '<td >' + fe.fe_pv3 + '</td>'
+            there_table.rows[4].cells[1].innerHTML = '<td >' + fe.fe_pv4 + '</td>'
+            there_table.rows[5].cells[1].innerHTML = '<td >' + fe.fe_pv5 + '</td>'
+            there_table.rows[1].cells[2].innerHTML = '<td >' + fe.fe_taxi1 + '</td>'
+            there_table.rows[2].cells[2].innerHTML = '<td >' + fe.fe_taxi2 + '</td>'
+            there_table.rows[3].cells[2].innerHTML = '<td >' + fe.fe_taxi3 + '</td>'
+            there_table.rows[4].cells[2].innerHTML = '<td >' + fe.fe_taxi4 + '</td>'
+            there_table.rows[5].cells[2].innerHTML = '<td >' + fe.fe_taxi5 + '</td>'
+            there_table.rows[1].cells[3].innerHTML = '<td >' + fe.fe_ldt1 + '</td>'
+            there_table.rows[2].cells[3].innerHTML = '<td >' + fe.fe_ldt2 + '</td>'
+            there_table.rows[3].cells[3].innerHTML = '<td >' + fe.fe_ldt3 + '</td>'
+            there_table.rows[4].cells[3].innerHTML = '<td >' + fe.fe_ldt4 + '</td>'
+            there_table.rows[5].cells[3].innerHTML = '<td >' + fe.fe_ldt5 + '</td>'
+            there_table.rows[1].cells[4].innerHTML = '<td >' + fe.fe_urbanBus1 + '</td>'
+            there_table.rows[2].cells[4].innerHTML = '<td >' + fe.fe_urbanBus2 + '</td>'
+            there_table.rows[3].cells[4].innerHTML = '<td >' + fe.fe_urbanBus3 + '</td>'
+            there_table.rows[4].cells[4].innerHTML = '<td >' + fe.fe_urbanBus4 + '</td>'
+            there_table.rows[5].cells[4].innerHTML = '<td >' + fe.fe_urbanBus5 + '</td>'
+            there_table.rows[1].cells[5].innerHTML = '<td >' + fe.fe_roadBus1 + '</td>'
+            there_table.rows[2].cells[5].innerHTML = '<td >' + fe.fe_roadBus2 + '</td>'
+            there_table.rows[3].cells[5].innerHTML = '<td >' + fe.fe_roadBus3 + '</td>'
+            there_table.rows[4].cells[5].innerHTML = '<td >' + fe.fe_roadBus4 + '</td>'
+            there_table.rows[5].cells[5].innerHTML = '<td >' + fe.fe_roadBus5 + '</td>'
+            there_table.rows[1].cells[6].innerHTML = '<td >' + fe.fe_hdv1 + '</td>'
+            there_table.rows[2].cells[6].innerHTML = '<td >' + fe.fe_hdv2 + '</td>'
+            there_table.rows[3].cells[6].innerHTML = '<td >' + fe.fe_hdv3 + '</td>'
+            there_table.rows[4].cells[6].innerHTML = '<td >' + fe.fe_hdv4 + '</td>'
+            there_table.rows[5].cells[6].innerHTML = '<td >' + fe.fe_hdv5 + '</td>'
+
+
+            for (var i = 4, row; row = one_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+
+
+                let pv = parseFloat(row.cells[1].innerText);
+                let taxi = parseFloat(row.cells[2].innerText);
+                let urban = parseFloat(row.cells[3].innerText);
+                let road = parseFloat(row.cells[4].innerText);
+                let ldt = parseFloat(row.cells[5].innerText);
+                let hdc = parseFloat(row.cells[6].innerText);
+
+
+                <!--inventory_day - inventory_yesterday +result-->
+
+                row.cells[7].innerHTML = '<td ><div edit_type="click" col_name="Total">' + (pv +taxi+urban+road+ldt+ hdc).toFixed(2) + '</div></td>';
+
+            }
+
+            for (var i = 4, row; row = one_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+
+
+                let pv = parseFloat(row.cells[1].innerText);
+                let taxi = parseFloat(row.cells[2].innerText);
+                let ldt = parseFloat(row.cells[3].innerText);
+
+
+                <!--inventory_day - inventory_yesterday +result-->
+
+                row.cells[8].innerHTML = '<td ><div edit_type="click" col_name="LDV">' + (pv + taxi + ldt).toFixed(2) + '</div></td>';
+
+            }
+
+            for (var i = 4, row; row = one_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+
+                let ldv = parseFloat(row.cells[8].innerText);
+                let ldt = parseFloat(row.cells[3].innerText);
+
+                <!--inventory_day - inventory_yesterday +result-->
+
+                row.cells[9].innerHTML = '<td ><div edit_type="click" col_name="LDT/LDV">' + (ldt / ldv).toFixed(2) + '</div></td>';
+
+            }
+
+            for (var i = 2, row; row = four_table.rows[i]; i++) {
+
+                let ev = parseFloat(four_table.rows[i - 1].cells[1].innerText);
+
+                let inventory_day = parseFloat(one_table.rows[i + 3].cells[1].innerText);
+                let inventory_yestday = parseFloat(one_table.rows[i + 2].cells[1].innerText)
+
+
+                row.cells[1].innerHTML = '<td><div edit_type="click" col_name="PV(保有量)">' + (ev * inventory_day / inventory_yestday).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 2, row; row = four_table.rows[i]; i++) {
+
+                let ev = parseFloat(four_table.rows[i - 1].cells[2].innerText);
+
+                let inventory_day = parseFloat(one_table.rows[i + 3].cells[2].innerText);
+                let inventory_yestday = parseFloat(one_table.rows[i + 2].cells[2].innerText)
+
+
+                row.cells[2].innerHTML = '<td><div edit_type="click" col_name="Taxi">' + (ev * inventory_day / inventory_yestday).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 2, row; row = four_table.rows[i]; i++) {
+
+                let ev = parseFloat(four_table.rows[i - 1].cells[3].innerText);
+
+                let inventory_day = parseFloat(one_table.rows[i + 3].cells[3].innerText);
+                let inventory_yestday = parseFloat(one_table.rows[i + 2].cells[3].innerText)
+
+
+                row.cells[3].innerHTML = '<td><div edit_type="click" col_name="LDT">' + (ev * inventory_day / inventory_yestday).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 2, row; row = four_table.rows[i]; i++) {
+
+                let ev = parseFloat(four_table.rows[i - 1].cells[4].innerText);
+
+                let inventory_day = parseFloat(one_table.rows[i + 3].cells[4].innerText);
+                let inventory_yestday = parseFloat(one_table.rows[i + 2].cells[4].innerText)
+
+
+                row.cells[4].innerHTML = '<td><div edit_type="click" col_name="Urban Bus">' + (ev * inventory_day / inventory_yestday).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 2, row; row = four_table.rows[i]; i++) {
+
+                let ev = parseFloat(four_table.rows[i - 1].cells[5].innerText);
+
+                let inventory_day = parseFloat(one_table.rows[i + 3].cells[5].innerText);
+                let inventory_yestday = parseFloat(one_table.rows[i + 2].cells[5].innerText)
+
+
+                row.cells[5].innerHTML = '<td><div edit_type="click" col_name="Road Bus">' + (ev * inventory_day / inventory_yestday).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 2, row; row = four_table.rows[i]; i++) {
+
+                let ev = parseFloat(four_table.rows[i - 1].cells[6].innerText);
+
+                let inventory_day = parseFloat(one_table.rows[i + 3].cells[6].innerText);
+                let inventory_yestday = parseFloat(one_table.rows[i + 2].cells[6].innerText)
+
+
+                row.cells[6].innerHTML = '<td><div edit_type="click" col_name="HDV">' + (ev * inventory_day / inventory_yestday).toFixed(2) + '</td></div>'
+            }
+
+
+            for (var i = 1; i <= 7; i++) {
+                let one = parseFloat(one_table.rows[i + 3].cells[1].innerText);
+                let two = parseFloat(second_table.rows[i].cells[1].innerText);
+                let 耗油量 = 0;
+                for (var x = 1; x <= 5; x++) {
+                    let seven = parseFloat(seven_table.rows[i].cells[x].innerText);
+                    let three = parseFloat(there_table.rows[x].cells[1].innerText);
+                    耗油量 = 耗油量 + (seven * three);
+                }
+                let four = parseFloat(four_table.rows[i].cells[1].innerText);
+                five_table.rows[i].cells[1].innerHTML = '<td><div edit_type="click" col_name="PV">' + (((one - four) * two * 耗油量) / 100 * 0.72 * 0.84 * 44 / 12 * 1000 / 1000000).toFixed(2) + '</div></td>'
+            }
+
+            for (var i = 1; i <= 7; i++) {
+                let one = parseFloat(one_table.rows[i + 3].cells[2].innerText);
+                let two = parseFloat(second_table.rows[i].cells[2].innerText);
+                let 耗油量 = 0;
+                for (var x = 1; x <= 5; x++) {
+                    let seven = parseFloat(seven_table.rows[i].cells[x + 5].innerText);
+                    let three = parseFloat(there_table.rows[x].cells[2].innerText);
+                    耗油量 = 耗油量 + (seven * three);
+                }
+                let four = parseFloat(four_table.rows[i].cells[2].innerText);
+                five_table.rows[i].cells[2].innerHTML = '<td><div edit_type="click" col_name="Taxi">' + (((one - four) * two * 耗油量) / 100 * 0.72 * 0.84 * 44 / 12 * 1000 / 1000000).toFixed(2) + '</div></td>'
+            }
+
+            for (var i = 1; i <= 7; i++) {
+                let one = parseFloat(one_table.rows[i + 3].cells[3].innerText);
+                let two = parseFloat(second_table.rows[i].cells[3].innerText);
+                let 耗油量 = 0;
+                for (var x = 1; x <= 5; x++) {
+                    let seven = parseFloat(seven_table.rows[i].cells[x + 10].innerText);
+                    let three = parseFloat(there_table.rows[x].cells[3].innerText);
+                    耗油量 = 耗油量 + (seven * three);
+                }
+                let four = parseFloat(four_table.rows[i].cells[3].innerText);
+                five_table.rows[i].cells[3].innerHTML = '<td><div edit_type="click" col_name="LDT">' + (((one - four) * two * 耗油量) / 100 * 0.78 * 0.84 * 44 / 12 * 1000 / 1000000).toFixed(2) + '</div></td>'
+            }
+
+            for (var i = 1; i <= 7; i++) {
+                let one = parseFloat(one_table.rows[i + 3].cells[4].innerText);
+                let two = parseFloat(second_table.rows[i].cells[4].innerText);
+                let 耗油量 = 0;
+                for (var x = 1; x <= 5; x++) {
+                    let seven = parseFloat(seven_table.rows[i].cells[x + 15].innerText);
+                    let three = parseFloat(there_table.rows[x].cells[4].innerText);
+                    耗油量 = 耗油量 + (seven * three);
+                }
+                let four = parseFloat(four_table.rows[i].cells[4].innerText);
+                five_table.rows[i].cells[4].innerHTML = '<td><div edit_type="click" col_name="Urban Bus">' + (((one - four) * two * 耗油量) / 100 * 0.82 * 0.84 * 44 / 12 * 1000 / 1000000).toFixed(2) + '</div></td>'
+            }
+
+            for (var i = 1; i <= 7; i++) {
+                let one = parseFloat(one_table.rows[i + 3].cells[5].innerText);
+                let two = parseFloat(second_table.rows[i].cells[5].innerText);
+                let 耗油量 = 0;
+                for (var x = 1; x <= 5; x++) {
+                    let seven = parseFloat(seven_table.rows[i].cells[x + 20].innerText);
+                    let three = parseFloat(there_table.rows[x].cells[5].innerText);
+                    耗油量 = 耗油量 + (seven * three);
+                }
+                let four = parseFloat(four_table.rows[i].cells[5].innerText);
+                five_table.rows[i].cells[5].innerHTML = '<td><div edit_type="click" col_name="Road Bus">' + (((one - four) * two * 耗油量) / 100 * 0.82 * 0.84 * 44 / 12 * 1000 / 1000000).toFixed(2) + '</div></td>'
+            }
+
+            for (var i = 1; i <= 7; i++) {
+                let one = parseFloat(one_table.rows[i + 3].cells[6].innerText);
+                let two = parseFloat(second_table.rows[i].cells[6].innerText);
+                let 耗油量 = 0;
+                for (var x = 1; x <= 5; x++) {
+                    let seven = parseFloat(seven_table.rows[i].cells[x].innerText);
+                    let three = parseFloat(there_table.rows[x].cells[6].innerText);
+                    耗油量 = 耗油量 + (seven * three);
+                }
+                let four = parseFloat(four_table.rows[i].cells[6].innerText);
+                five_table.rows[i].cells[6].innerHTML = '<td><div edit_type="click" col_name="HDT">' + (((one - four) * two * 耗油量) / 100 * 0.82 * 0.84 * 44 / 12 * 1000 / 1000000).toFixed(2) + '</div></td>'
+            }
+
+            for (var i = 1, row; row = five_table.rows[i]; i++) {
+                let pv = parseFloat(row.cells[1].innerText);
+                let hdt = parseFloat(row.cells[6].innerText);
+                row.cells[7].innerHTML = '<td><div edit_type="click" col_name="Total">' + (pv + hdt).toFixed(2) + '</td></div>'
+
+            }
+
+            for (var i = 1, row; row = six_table.rows[i]; i++) {
+
+                let inventory = parseFloat(one_table.rows[i + 3].cells[1].innerText);
+                let mileage = parseFloat(second_table.rows[i].cells[1].innerText)
+
+
+                row.cells[1].innerHTML = '<td><div edit_type="click" col_name="PV">' + (inventory * mileage).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 1, row; row = six_table.rows[i]; i++) {
+
+                let inventory = parseFloat(one_table.rows[i + 3].cells[2].innerText);
+                let mileage = parseFloat(second_table.rows[i].cells[2].innerText)
+
+
+                row.cells[2].innerHTML = '<td><div edit_type="click" col_name="Taxi">' + (inventory * mileage).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 1, row; row = six_table.rows[i]; i++) {
+
+                let inventory = parseFloat(one_table.rows[i + 3].cells[3].innerText);
+                let mileage = parseFloat(second_table.rows[i].cells[3].innerText)
+
+
+                row.cells[3].innerHTML = '<td><div edit_type="click" col_name="LDT">' + (inventory * mileage).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 1, row; row = six_table.rows[i]; i++) {
+
+                let inventory = parseFloat(one_table.rows[i + 3].cells[4].innerText);
+                let mileage = parseFloat(second_table.rows[i].cells[4].innerText)
+
+
+                row.cells[4].innerHTML = '<td><div edit_type="click" col_name="Urban Bus">' + (inventory * mileage).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 1, row; row = six_table.rows[i]; i++) {
+
+                let inventory = parseFloat(one_table.rows[i + 3].cells[5].innerText);
+                let mileage = parseFloat(second_table.rows[i].cells[5].innerText)
+
+
+                row.cells[5].innerHTML = '<td><div edit_type="click" col_name="Road Bus">' + (inventory * mileage).toFixed(2) + '</td></div>'
+            }
+
+            for (var i = 1, row; row = six_table.rows[i]; i++) {
+
+                let inventory = parseFloat(one_table.rows[i + 3].cells[6].innerText);
+                let mileage = parseFloat(second_table.rows[i].cells[6].innerText)
+
+
+                row.cells[6].innerHTML = '<td><div edit_type="click" col_name="HDV">' + (inventory * mileage).toFixed(2)+ '</td></div>'
+            }
+        }
+
+            const btnGraph = document.getElementById("btnGraph");
+            btnGraph.onclick = function() {
+                const five_table = document.getElementById("five table");
+
+                let years = [];
+                let pv = [];
+                let taxi = [];
+                let LDT = [];
+                let UrbanBus = [];
+                let RoadBus = [];
+                let HDT = [];
+                let Total = [];
+
+                for (var i = 1, row; row = five_table.rows[i]; i++) {
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0, col; col = row.cells[j]; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                    }
+                    years.push(parseFloat(row.cells[0].innerText));
+                    pv.push(parseFloat(row.cells[1].innerText));
+                    taxi.push(parseFloat(row.cells[2].innerText));
+                    LDT.push(parseFloat(row.cells[3].innerText));
+                    UrbanBus.push(parseFloat(row.cells[4].innerText));
+                    RoadBus.push(parseFloat(row.cells[5].innerText));
+                    HDT.push(parseFloat(row.cells[6].innerText));
+                    Total.push(parseFloat(row.cells[7].innerText));
+                }
+
+                new Chart(document.getElementById("canvas"), {
+                    type: 'line',
+                    data: {
+                        labels: years,
+                        datasets: [{
+                            data: pv,
+                            label: "PV的CO2排放量",
+                            borderColor: "#0000FF",
+                            bottom: '10px',
+                            fill: false
+                        },{
+                            data: taxi,
+                            label: "Taxi的CO2排放量",
+                            borderColor: "#9900FF",
+                            bottom: '12px',
+                            fill: false
+                        },{
+                            data: LDT,
+                            label: "LDT的CO2排放量",
+                            borderColor: "#000000",
+                            bottom: '14px',
+                            fill: false
+                        },{
+                            data: UrbanBus,
+                            label: "Urban Bus的CO2排放量",
+                            borderColor: "#00FF00",
+
+                            fill: false
+                        },{
+                            data: RoadBus,
+                            label: "Road Bus的CO2排放量",
+                            borderColor: "#FFC0CB",
+                            fill: false
+                        },{
+                            data: HDT,
+                            label: "HDT的CO2排放量",
+                            borderColor: "#FF0000",
+
+                            fill: false
+                        },{
+                            data: Total,
+                            label: "Total的CO2排放量",
+                            borderColor: "#FF6600",
+                            fill: false
+                        }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: '横轴：年， 纵轴：车辆总量(万辆)'
+                        }
+                    }
+                });
+            }
+
+            const btnExcel = document.getElementById("btnExcel");
+            btnExcel.onclick = function(){
+                var wb = XLSX.utils.book_new();
+                wb.Props = {
+                    Title: "model",
+                    Subject: "",
+                    Author: "",
+                    CreatedDate: new Date()
+                };
+                wb.SheetNames.push("Test Sheet");
+                var ws_data = [];
+
+                const one_table = document.getElementById("one table");
+                const second_table = document.getElementById("second table");
+                const seven_table = document.getElementById("seven table");
+                const three_table = document.getElementById("there table");
+                const four_table = document.getElementById("four table");
+                const five_table = document.getElementById("five table");
+                const six_table = document.getElementById("six table");
+
+
+                for (var i = 0, row; row = one_table.rows[i]; i++) {
+                    let rowList = []
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0; j < row.cells.length - 1; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                        rowList.push(row.cells[j].innerText)
+                    }
+                    ws_data.push(rowList);
+                }
+
+                for (var i = 0, row; row = second_table.rows[i]; i++) {
+                    let rowList = []
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0; j < row.cells.length - 1; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                        rowList.push(row.cells[j].innerText)
+                    }
+                    ws_data.push(rowList);
+                }
+
+                for (var i = 0, row; row = seven_table.rows[i]; i++) {
+                    let rowList = []
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0; j < row.cells.length - 1; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                        rowList.push(row.cells[j].innerText)
+                    }
+                    ws_data.push(rowList);
+                }
+
+                for (var i = 0, row; row = three_table.rows[i]; i++) {
+                    let rowList = []
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0; j < row.cells.length - 1; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                        rowList.push(row.cells[j].innerText)
+                    }
+                    ws_data.push(rowList);
+                }
+
+                for (var i = 0, row; row = four_table.rows[i]; i++) {
+                    let rowList = []
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0; j < row.cells.length - 1; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                        rowList.push(row.cells[j].innerText)
+                    }
+                    ws_data.push(rowList);
+                }
+
+                for (var i = 0, row; row = five_table.rows[i]; i++) {
+                    let rowList = []
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0; j < row.cells.length - 1; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                        rowList.push(row.cells[j].innerText)
+                    }
+                    ws_data.push(rowList);
+                }
+
+                for (var i = 0, row; row = six_table.rows[i]; i++) {
+                    let rowList = []
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0; j < row.cells.length - 1; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                        rowList.push(row.cells[j].innerText)
+                    }
+                    ws_data.push(rowList);
+                }
+
+                var ws = XLSX.utils.aoa_to_sheet(ws_data);
+                wb.Sheets["Test Sheet"] = ws;
+
+                var wbout = XLSX.write(wb, {bookType:'xlsx', type: 'binary'});
+
+                saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'model.xlsx');
+            }
+
+            function s2ab(s){
+                var buf = new ArrayBuffer(s.length);
+                var view = new Uint8Array(buf);
+                for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+                return buf;
+            }
+
+    });
+
+</script>
+
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+
+                    <div class="ibox-content">
+
+                        <div>
+                            <table class="table table-striped table-bordered table-hover " id="one table" name="one table">
+                                <thead>
+                                <tr>
+                                    <th name="year">年份</th>
+                                    <th name="passengerVehicle">Passenger Vehicle</th>
+                                    <th name="taxi">Taxi</th>
+                                    <th name="lightDutyCommercialVehicle">Light Duty Commercial Vehicle</th>
+                                    <th name="mediumDutyBus">Medium Duty Bus(Urban Bus)</th>
+                                    <th name="largeDutyBus">Large Duty Bus(Road Bus)</th>
+                                    <th name="heavyDutyCommercialVehicle">Heavy Duty Commercial Vehicle</th>
+                                    <th name="total">Total</th>
+                                    <th name="ldv">LDV</th>
+                                    <th name="ldtLdv">LDT/LDV</th>
+                                </tr>
+                                </thead>
+                                <tbody id="surR">
+
+                                </tbody>
+                             </table>
+                         </div>
+                        <div>
+                            <table class="table table-striped table-bordered table-hover " id="second table" name="second table">
+                                <thead>
+                                <tr>
+                                    <th name="mileage">mileage</th>
+                                    <th name="pv">PV</th>
+                                    <th name="taxi">Taxi</th>
+                                    <th name="ldt">LDT</th>
+                                    <th name="urbanBus">Urban Bus</th>
+                                    <th name="roadBus">Road Bus</th>
+                                    <th name="hdvTruck">HDV(Truck)</th>
+                                </tr>
+                                </thead>
+                                <tbody id="roadBus">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-striped table-bordered table-hover " id="seven table" name="seven table">
+                                <thead>
+                                <tr>
+                                    <th name="ofPopulationForStage">% of population for stage</th>
+                                    <th name="pvstage0">PVstage 0</th>
+                                    <th name="pvstage1">PVstage 1</th>
+                                    <th name="pvstage2">PVstage 2</th>
+                                    <th name="pvstage3">PVstage 3</th>
+                                    <th name="pvstage4">PVstage 4</th>
+                                    <th name="taxistage0">Taxistage 0</th>
+                                    <th name="taxistage1">Taxistage 1</th>
+                                    <th name="taxistage2">Taxistage 2</th>
+                                    <th name="taxistage3">Taxistage 3</th>
+                                    <th name="taxistage4">Taxistage 4</th>
+                                    <th name="ldtstage0">LDTstage 0</th>
+                                    <th name="ldtstage1">LDTstage 1</th>
+                                    <th name="ldtstage2">LDTstage 2</th>
+                                    <th name="ldtstage3">LDTstage 3</th>
+                                    <th name="ldtstage4">LDTstage 4</th>
+                                    <th name="urbanBusstage0">Urban Busstage 0</th>
+                                    <th name="urbanBusstage1">Urban Busstage 1</th>
+                                    <th name="urbanBusstage2">Urban Busstage 2</th>
+                                    <th name="urbanBusstage3">Urban Busstage 3</th>
+                                    <th name="urbanBusstage4">Urban Busstage 4</th>
+                                    <th name="roadBusstage0">Road Busstage 0</th>
+                                    <th name="roadBusstage1">Road Busstage 1</th>
+                                    <th name="roadBusstage2">Road Busstage 2</th>
+                                    <th name="roadBusstage3">Road Busstage 3</th>
+                                    <th name="roadBusstage4">Road Busstage 4</th>
+                                    <th name="hdtstage0">HDTstage 0</th>
+                                    <th name="hdtstage1">HDTstage 1</th>
+                                    <th name="hdtstage2">HDTstage 2</th>
+                                    <th name="hdtstage3">HDTstage 3</th>
+                                    <th name="hdtstage4">HDTstage 4</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="three">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-striped table-bordered table-hover " id="there table" name="there table">
+                                <thead>
+                                <tr>
+                                    <th name="feNumbers">FE numbers</th>
+                                    <th name="pv">PV</th>
+                                    <th name="taxi">Taxi</th>
+                                    <th name="ldt">LDT</th>
+                                    <th name="urbanBus">Urban Bus</th>
+                                    <th name="roadBus">Road Bus</th>
+                                    <th name="hdv">HDV</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="four">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-striped table-bordered table-hover " id="four table" name="four table">
+                                <thead>
+                                <tr>
+                                    <th name="evNumbers">EV numbers(million)</th>
+                                    <th name="pvStock">PV(保有量)</th>
+                                    <th name="taxi">Taxi</th>
+                                    <th name="ldt">LDT</th>
+                                    <th name="urbanBus">Urban Bus</th>
+                                    <th name="roadBus">Road Bus</th>
+                                    <th name="hdv">HDV</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="five">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-striped table-bordered table-hover " id="five table" name="five table">
+                                <thead>
+                                <tr>
+                                    <th name="co2Emissoins">CO2 emissoins</th>
+                                    <th name="pv">PV</th>
+                                    <th name="taxi">Taxi</th>
+                                    <th name="ldt">LDT</th>
+                                    <th name="urbanBus">Urban Bus</th>
+                                    <th name="roadBus">Road Bus</th>
+                                    <th name="hdt">HDT</th>
+                                    <th name="total">Total</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="six">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-striped table-bordered table-hover " id="six table" name="six table">
+                                <thead>
+                                <tr>
+                                    <th name="populationDistanceTravelledKm">Population Distance Travelled(milliom km)</th>
+                                    <th name="pv">PV</th>
+                                    <th name="taxi">Taxi</th>
+                                    <th name="ldt">LDT</th>
+                                    <th name="urbanBus">Urban Bus</th>
+                                    <th name="roadBus">Road Bus</th>
+                                    <th name="hdv">HDV</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="seven">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<center>
+    <button type="button" id="btnCalc" class="vertical-center">计算</button>
+    <button type="button" id="btnGraph" class="vertical-center">画图</button>
+    <button type="button" id="btnExcel" class="vertical-center">下载excel</button>
+</center>
+    <canvas id="canvas" width="800" height="450"></canvas><br>
+
+    <!-- 全局js -->
+    <script src="/wisdom/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/wisdom/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/wisdom/static/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/wisdom/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/wisdom/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/wisdom/static/js/content.js?v=1.0.0"></script>
+
+</body>
+
+</html>

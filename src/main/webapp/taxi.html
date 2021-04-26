@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>智汇绿行</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="/wisdom/favicon.ico"> <link href="/wisdom/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/wisdom/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/wisdom/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/wisdom/static/css/animate.css" rel="stylesheet">
+    <link href="/wisdom/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="/wisdom/static/chart.js"></script>
+    <script src="/wisdom/static/jquery.js"></script>
+    <script src="/wisdom/static/xlsx.full.min.js"></script>
+    <script src="/wisdom/static/FileSaver.js"></script>
+
+</head>
+
+<script type="text/javascript">
+    $(document).ready(function($) {
+
+        $.post("/wisdom/Taxisur/selectTaxisurByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#surR").append(
+                    "<tr row_id="+this.id+" table_name='残存率 table'><td><div edit_type='click' col_name='year'>"+this.year+"</div></td>" +
+                    "<td><div class='row_data' edit_type='click' col_name='survival'>"+this.survival+"</div></td>" +
+                    "<td><span class='btn_edit' table_name='残存率 table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                    "<span class='btn_save' table_name='残存率 table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                    "<span class='btn_cancel' table_name='残存率 table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">取消</a> </span>" +
+                    "</td></tr>");
+            });
+        });
+
+        $.post("/wisdom/Taxi/selectTaxiByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#roadBus").append(
+                    "<tr row_id="+this.id+" table_name='second table'><td><div edit_type='click' col_name='year'>"+this.year+"</div></td>" +
+                    "<td><div class='row_data' edit_type='click' col_name='stock'>"+this.stock+"</div></td>" +
+                    "<td><div edit_type='click' col_name='sale'>"+Math.round(this.sale*100)/100+"</div></td>"+
+                    "<td><span class='btn_edit' table_name='second table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                    "<span class='btn_save' table_name='second table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                    "<span class='btn_cancel' table_name='second table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">取消</a> </span>" +
+                    "</td></tr>");
+            });
+        });
+        $.post("/wisdom/Taxisur2/selectTaxisur2Byfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#three").append(
+                    "<tr row_id="+this.id+" table_name='电动车残存率 table'><td><div edit_type='click' col_name='year'>"+this.year+"</div></td>" +
+                    "<td><div class='row_data' edit_type='click' col_name='survival'>"+this.survival+"</div></td>" +
+                    "<td><span class='btn_edit' table_name='电动车残存率 table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                    "<span class='btn_save' table_name='电动车残存率 table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                    "<span class='btn_cancel' table_name='电动车残存率 table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">取消</a> </span>" +
+                    "</td></tr>");
+            });
+        });
+        $.post("/wisdom/Taxi2/selectTaxi2Byfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#four").append(
+                    "<tr row_id="+this.id+" table_name='third table'><td><div edit_type='click' col_name='year'>"+this.year+"</div></td>" +
+                    "<td><div class='row_data' edit_type='click' col_name='electricSaleProportion'>"+this.electricSaleProportion+"</div></td>" +
+                    "<td><div edit_type='click' col_name='electricSales'>"+this.electricSales+"</div></td>" +
+                    "<td><div edit_type='click' col_name='electricStock'>"+this.electricStock+"</div></td>" +
+                    "<td><div edit_type='click' col_name='electricStockProportion'>"+this.electricStockProportion+"</td>" +
+                    "<td><span class='btn_edit' table_name='third table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                    "<span class='btn_save' table_name='third table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                    "<span class='btn_cancel' table_name='third table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                    "</td></tr>");
+            });
+        });
+
+        $(document).find('.btn_save').hide();
+        $(document).find('.btn_cancel').hide();
+
+        //--->make div editable > start
+        $(document).on('click', '.row_data', function(event)
+        {
+            event.preventDefault();
+
+            if($(this).attr('edit_type') == 'button')
+            {
+                return false;
+            }
+
+            //make div editable
+            $(this).closest('div').attr('contenteditable', 'true');
+            //add bg css
+            $(this).addClass('bg-warning').css('padding','5px');
+
+            $(this).focus();
+        });
+        //--->make div editable > end
+
+        //--->save single field data > start
+        $(document).on('focusout', '.row_data', function(event)
+        {
+            event.preventDefault();
+
+            if($(this).attr('edit_type') == 'button')
+            {
+                return false;
+            }
+
+            var row_id = $(this).closest('tr').attr('row_id');
+            var table_name = $(this).closest('tr').attr('table_name');
+
+            var row_div = $(this)
+                .removeClass('bg-warning') //add bg css
+                .css('padding','');
+
+            var col_name = row_div.attr('col_name');
+            var col_val = row_div.html();
+
+            var arr = {};
+            arr[col_name] = col_val;
+
+            //use the "arr" object for your ajax call
+            $.extend(arr, {row_id:row_id});
+            $.extend(arr, {table_name:table_name});
+
+            //out put to show
+        <!-- $('.post_msg').html('<pre class="bg-success">'+JSON.stringify(arr, null, 2)+'</pre>'); -->
+        });
+        //--->save single field data > end
+
+        //--->button > edit > start
+        $(document).on('click', '.btn_edit', function(event)
+        {
+            event.preventDefault();
+            var tbl_row = $(this).closest('tr');
+
+            var row_id = tbl_row.attr('row_id');
+
+            tbl_row.find('.btn_save').show();
+            tbl_row.find('.btn_cancel').show();
+
+            //hide edit button
+            tbl_row.find('.btn_edit').hide();
+
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('contenteditable', 'true')
+                .attr('edit_type', 'button')
+                .addClass('bg-warning')
+                .css('padding', '3px');
+
+            //--->add the original entry > start
+            tbl_row.find('.row_data').each(function(index, val)
+            {
+                // this will help in case user decided to click on cancel button
+                $(this).attr('original_entry', $(this).html());
+            });
+            //--->add the original entry > end
+        });
+        //--->button > edit > end
+
+        //--->button > cancel > start
+        $(document).on('click', '.btn_cancel', function(event)
+        {
+            event.preventDefault();
+
+            var tbl_row = $(this).closest('tr');
+
+            var row_id = tbl_row.attr('row_id');
+
+            //hide save and cancel buttons
+            tbl_row.find('.btn_save').hide();
+            tbl_row.find('.btn_cancel').hide();
+
+            //show edit button
+            tbl_row.find('.btn_edit').show();
+
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('edit_type', 'click')
+                .removeClass('bg-warning')
+                .css('padding','');
+
+            tbl_row.find('.row_data').each(function(index, val)
+            {
+                $(this).html( $(this).attr('original_entry') );
+            });
+        });
+        //--->button > cancel > end
+
+        //--->save whole row entry > start
+        $(document).on('click', '.btn_save', function(event)
+        {
+            event.preventDefault();
+            var tbl_row = $(this).closest('tr');
+
+            var row_id = tbl_row.attr('row_id');
+            var table_name = $(this).closest('tr').attr('table_name');
+
+            //hide save and cancel buttons
+            tbl_row.find('.btn_save').hide();
+            tbl_row.find('.btn_cancel').hide();
+
+            //show edit button
+            tbl_row.find('.btn_edit').show();
+
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('edit_type', 'click')
+                .removeClass('bg-warning')
+                .css('padding','');
+
+            //--->get row data > start
+            var arr = {};
+            tbl_row.find('.row_data').each(function(index, val)
+            {
+                var col_name = $(this).attr('col_name');
+                var col_val = $(this).html();
+                arr[col_name] = col_val;
+            });
+            //--->get row data > end
+
+            //use the "arr" object for your ajax call
+            $.extend(arr, {row_id:row_id});
+            $.extend(arr, {table_name:table_name});
+
+            //out put to show
+        <!-- $('.post_msg').html('<pre class="bg-success">'+JSON.stringify(arr, null, 2) +'</pre>'); -->
+        });
+
+        const btnCalc = document.getElementById("btnCalc");
+
+        btnCalc.onclick = function(){
+            // const 弹性系数_table = document.getElementById("弹性系数 table");
+            const 残存率_table = document.getElementById("残存率 table");
+            const second_table = document.getElementById("second table");
+            const 电动车残存率_table = document.getElementById("电动车残存率 table");
+            const third_table = document.getElementById("third table");
+
+
+            for (var i = 2, row; row = second_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+
+                let previous_row = second_table.rows[i - 1];
+                let inventory_last = parseFloat(previous_row.cells[1].innerText)
+                let inventory = parseFloat(row.cells[1].innerText);
+
+                let result = 0;
+
+                for (var j = 2,row1;row1=残存率_table.rows[j];j++){
+
+
+                    if (i - j >= 1){
+                        let sur = parseFloat(row1.cells[1].innerText);
+                        let ser_last = parseFloat(残存率_table.rows[j -1].cells[1].innerText)
+                        let sale = parseFloat(second_table.rows[i - j].cells[2].innerText);
+                        result = result +  (sale * (ser_last - sur));
+                    }
+
+                }
+                var num = (inventory - inventory_last + result);
+                num = num.toFixed(4)
+
+                row.cells[2].innerHTML = '<td ><div edit_type="click" col_name="sale">'+ Math.round(num*100)/100 +'</div></td>';
+            }
+
+
+            for(var  i = 1,row;row=third_table.rows[i];i++){
+
+                let perviouse_total = parseFloat(third_table.rows[i].cells[1].innerText);
+                let growth_rate = parseFloat(second_table.rows[i].cells[2].innerText);
+
+                var num = (perviouse_total * growth_rate);
+                num = num.toFixed(2)
+
+                row.cells[2].innerHTML = '<td ><div edit_type="click" col_name="electricSales">'+ num  +'</div></td>';
+
+            }
+
+
+
+            for (var i = 1, row; row = third_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+
+                let result = 0;
+                let perviouse_total = parseFloat(third_table.rows[i].cells[2].innerText);
+
+                for (var j = 1,row1;row1=电动车残存率_table.rows[j];j++){
+
+
+                    if (i - j >= 1){
+                        let sur = parseFloat(row1.cells[1].innerText);
+                        let sale = parseFloat(third_table.rows[i  - j].cells[2].innerText);
+                        result = result +  (sale * sur);
+                    }
+                }
+
+                var num = (perviouse_total + result);
+                num = num.toFixed(2)
+
+                row.cells[3].innerHTML = '<td ><div edit_type="click" col_name="electricStock">'+ num  +'</div></td>';
+            }
+
+            for(var  i = 1,row;row=third_table.rows[i];i++){
+
+                let perviouse_total = parseFloat(third_table.rows[i].cells[3].innerText);
+                let growth_rate = parseFloat(second_table.rows[i].cells[1].innerText);
+
+                var num = (perviouse_total / growth_rate)*100;
+                num = num.toFixed(2)
+
+                row.cells[4].innerHTML = '<td ><div edit_type="click" col_name="electricStockProportion">'+ num  +"%"+'</div></td>';
+
+            }
+
+            //localStorage
+            var storage=window.localStorage;
+
+            var in_Taxi={
+                "taxi0":second_table.rows[43].cells[1].innerText,
+                "taxi1":second_table.rows[48].cells[1].innerText,
+                "taxi2":second_table.rows[53].cells[1].innerText,
+                "taxi3":second_table.rows[58].cells[1].innerText,
+                "taxi4":second_table.rows[63].cells[1].innerText,
+                "taxi5":second_table.rows[68].cells[1].innerText,
+                "taxi6":second_table.rows[73].cells[1].innerText
+            }
+
+            var Taxi=JSON.stringify(in_Taxi);
+            storage.setItem("inventory_Taxi",Taxi);
+        }
+
+        const btnGraph = document.getElementById("btnGraph");
+        btnGraph.onclick = function(){
+            const second_table = document.getElementById("second table");
+            const third_table = document.getElementById("third table");
+            let years = [];
+            let values = [];
+            let values电动车 = [];
+
+            for (var i = 1, row; row = second_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                    <!-- console.log(col.innerText); -->
+                    <!-- col.innerText = 0; -->
+                }
+                years.push(parseFloat(row.cells[0].innerText));
+                values.push(parseFloat(row.cells[2].innerText));
+            }
+
+            for (var i = 1, row; row = third_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                    <!-- console.log(col.innerText); -->
+                    <!-- col.innerText = 0; -->
+                }
+                values电动车.push(parseFloat(row.cells[4].innerText));
+            }
+
+
+
+            new Chart(document.getElementById("canvas"), {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        data: values,
+                        label: "销售量（万辆）",
+                        borderColor: "#3e95cd",
+                        fill: false
+                    },
+                        {
+                            data: values电动车,
+                            label:"电动车销量（万辆）",
+                            borderColor:"#8e5ea2",
+                            fill: false
+                        }
+                    ]
+
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: '横轴：年  纵轴：销售量（万辆）,电动车销量（万辆）'
+                    }
+                }
+            });
+
+
+        }
+
+
+        const btnExcel = document.getElementById("btnExcel");
+        btnExcel.onclick = function(){
+            var wb = XLSX.utils.book_new();
+            wb.Props = {
+                Title: "model",
+                Subject: "",
+                Author: "",
+                CreatedDate: new Date()
+            };
+            wb.SheetNames.push("Test Sheet");
+            var ws_data = [];
+
+            // const 弹性系数_table = document.getElementById("弹性系数 table");
+            const 残存率_table = document.getElementById("残存率 table");
+            const second_table = document.getElementById("second table");
+            const 电动车残存率_table = document.getElementById("电动车残存率 table");
+            const third_table = document.getElementById("third table");
+
+
+
+            for (var i = 0, row; row = 残存率_table.rows[i]; i++) {
+                let rowList = []
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (var j = 0; j < row.cells.length - 1; j++) {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                    <!-- console.log(col.innerText); -->
+                    <!-- col.innerText = 0; -->
+                    rowList.push(row.cells[j].innerText)
+                }
+                ws_data.push(rowList);
+            }
+
+            for (var i = 0, row; row = second_table.rows[i]; i++) {
+                let rowList = []
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (var j = 0; j < row.cells.length - 1; j++) {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                    <!-- console.log(col.innerText); -->
+                    <!-- col.innerText = 0; -->
+                    rowList.push(row.cells[j].innerText)
+                }
+                ws_data.push(rowList);
+            }
+
+            for (var i = 0, row; row = 电动车残存率_table.rows[i]; i++) {
+                let rowList = []
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (var j = 0; j < row.cells.length - 1; j++) {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                    <!-- console.log(col.innerText); -->
+                    <!-- col.innerText = 0; -->
+                    rowList.push(row.cells[j].innerText)
+                }
+                ws_data.push(rowList);
+            }
+
+            for (var i = 0, row; row = third_table.rows[i]; i++) {
+                let rowList = []
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (var j = 0; j < row.cells.length - 1; j++) {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                    <!-- console.log(col.innerText); -->
+                    <!-- col.innerText = 0; -->
+                    rowList.push(row.cells[j].innerText)
+                }
+                ws_data.push(rowList);
+            }
+
+            var ws = XLSX.utils.aoa_to_sheet(ws_data);
+            wb.Sheets["Test Sheet"] = ws;
+
+            var wbout = XLSX.write(wb, {bookType:'xlsx', type: 'binary'});
+
+            saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'model.xlsx');
+        }
+
+        function s2ab(s){
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+
+    });
+
+</script>
+
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span style="font-size: 18px;font-weight: bold">出租车计算</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 14px">弹性系数法：V<sub>T</sub> = (1 + k * a） * V<sub>T-1</sub>(保有量保持不变)</span>
+                </div>
+                <br>
+                <div class="ibox-content">
+                    <div>
+                        <h3>残存率</h3>
+                        <table class="table table-striped table-bordered table-hover " id="残存率 table" name="残存率 table">
+                            <thead>
+                            <tr>
+                                <th name="year">车龄</th>
+                                <th name="survival">残存率</th>
+                                <th name="contro">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="surR">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div>
+                        <h3>出租车销量/保有预测</h3>
+                        <h4>本表预测出租车销量/保有未来结果，用户仅能更改保有量数据</h4>
+                        <table class="table table-striped table-bordered table-hover " id="second table" name="second table">
+                            <thead>
+                            <tr>
+                                <th name="year">年份</th>
+                                <th name="stock">保有量（万辆）</th>
+                                <th name="sale">销量（万辆）</th>
+                                <th name="contro">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="roadBus">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div>
+                        <h3>电车残存率</h3>
+                        <table class="table table-striped table-bordered table-hover " id="电动车残存率 table" name="电动车残存率 table">
+                            <thead>
+                            <tr>
+                                <th name="year">车龄</th>
+                                <th name="survival">残存率</th>
+                                <th name="contro">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="three">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div>
+                        <h3>出租车电动化预测</h3>
+                        <table class="table table-striped table-bordered table-hover " id="third table" name="third table">
+                            <thead>
+                            <tr>
+                                <th name="year">年份</th>
+                                <th name="electricSaleProportion">电动车销量比例</th>
+                                <th name="electricSales">电动车销量（万辆)</th>
+                                <th name="electricStock">电动车保有量（万辆）</th>
+                                <th name="electricStockProportion">电动车保有量占比</th>
+                                <th name="contro">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="four">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<center>
+    <button type="button" id="btnCalc" class="vertical-center">计算</button>
+    <button type="button" id="btnGraph" class="vertical-center">画图</button>
+    <button type="button" id="btnExcel" class="vertical-center">下载excel</button>
+</center>
+<canvas id="canvas" width="800" height="450"></canvas>
+
+<!-- 全局js -->
+<script src="/wisdom/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/wisdom/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+<script src="/wisdom/static/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+<!-- Data Tables -->
+<script src="/wisdom/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/wisdom/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+<!-- 自定义js -->
+<script src="/wisdom/static/js/content.js?v=1.0.0"></script>
+
+
+</body>
+
+</html>

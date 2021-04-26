@@ -1,0 +1,316 @@
+
+<html>
+<head>
+    <style>
+        .vertical-center {
+            margin:0 auto;
+            display:block;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title> Road Bus</title>
+    <ul>
+        <li>确认拿出的数据 可直接点单个cell修改</li>
+        <li>如果你刷新界面，你的改动会全部丢失，回归default</li>
+        <li>如果你返回，改动会全部丢失</li>
+        <li>计算之前一定要在表格里留足够的数据，不然空缺的cell当0处理，用0计算</li>
+        <li>该有数字的cell若有非数字，cell当0处理，用0计算</li>
+        <li>画图,下载Excel完全根据表格里的数据，如果你不想搞笑，别忘先选方案，计算</li>
+    </ul>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="/wisdom/static/chart.js"></script>
+    <script src="/wisdom/static/jquery.js"></script>
+    <script src="/wisdom/static/xlsx.full.min.js"></script>
+    <script src="/wisdom/static/FileSaver.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function($)
+        {
+            const btnCalc = document.getElementById("btnCalc");
+
+            btnCalc.onclick = function() {
+
+                const second_table = document.getElementById("second table");
+
+                for (var i = 2, row; row = second_table.rows[i]; i++) {
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+
+                    let previous_row = second_table.rows[i - 1];
+                    let previous_total = parseFloat(row.cells[2].innerText);
+                    let growth_rate = parseFloat(previous_row.cells[2].innerText);
+
+                    row.cells[1].innerHTML = '<td >' + (previous_total - growth_rate) / previous_total * 100 + '</td>';
+
+                }
+            }
+            const btnGraph = document.getElementById("btnGraph");
+            btnGraph.onclick = function(){
+                const second_table = document.getElementById("second table");
+
+                let years = [];
+                let values2 = [];
+
+                for (var i = 1, row; row = second_table.rows[i]; i++) {
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0, col; col = row.cells[j]; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                    }
+                    years.push(parseFloat(row.cells[0].innerText));
+                    values2.push(parseFloat(row.cells[4].innerText));
+
+                }
+
+
+                new Chart(document.getElementById("canvas"), {
+                    type: 'line',
+                    data: {
+                        labels: years,
+                        datasets: [{
+                            data: values2,
+                            label: "销售量",
+                            borderColor: "#8e5ea2",
+                            fill: false
+                        }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: '横轴：年， 纵轴：车辆总量(万辆)'
+                        }
+                    }
+                });
+            }
+
+            const btnExcel = document.getElementById("btnExcel");
+            btnExcel.onclick = function(){
+                var wb = XLSX.utils.book_new();
+                wb.Props = {
+                    Title: "model",
+                    Subject: "",
+                    Author: "",
+                    CreatedDate: new Date()
+                };
+                wb.SheetNames.push("Test Sheet");
+                var ws_data = [];
+
+                const second_table = document.getElementById("second table");
+
+                for (var i = 0, row; row = second_table.rows[i]; i++) {
+                    let rowList = []
+                    //iterate through rows
+                    //rows would be accessed using the "row" variable assigned in the for loop
+                    for (var j = 0; j < row.cells.length - 1; j++) {
+                        //iterate through columns
+                        //columns would be accessed using the "col" variable assigned in the for loop
+                        <!-- console.log(col.innerText); -->
+                        <!-- col.innerText = 0; -->
+                        rowList.push(row.cells[j].innerText)
+                    }
+                    ws_data.push(rowList);
+                }
+
+                var ws = XLSX.utils.aoa_to_sheet(ws_data);
+                wb.Sheets["Test Sheet"] = ws;
+
+                var wbout = XLSX.write(wb, {bookType:'xlsx', type: 'binary'});
+
+                saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'model.xlsx');
+            }
+
+            function s2ab(s){
+                var buf = new ArrayBuffer(s.length);
+                var view = new Uint8Array(buf);
+                for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+                return buf;
+            }
+
+        });
+
+
+    </script>
+
+</head>
+<body >
+
+    <div>
+        <table class="table table-striped table-bordered table-hover dataTables-example" id="kabR table" name="kabR table">
+            <thead>
+            <tr>
+                <th name="k">k</th>
+                <th name="contro">操作</th>
+            </tr>
+            </thead>
+            <tbody id="kabR">
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <div>
+        <table class="table table-striped table-bordered table-hover dataTables-example" id="surR table" name="surR table">
+            <thead>
+            <tr>
+                <th name="year">年份</th>
+                <th name="survival">残存率</th>
+                <th name="contro">操作</th>
+            </tr>
+            </thead>
+            <tbody id="surR">
+
+            </tbody>
+
+        </table>
+    </div>
+<div>
+    <table class="table table-striped table-bordered table-hover dataTables-example" id="second table" name="second table">
+        <thead>
+        <tr>
+            <th name="year">年份</th>
+            <th name="gdpAverageGrowth">人均GDP增速</th>
+            <th name="gdpAverage">人均GDP</th>
+            <th name="stock">保有量</th>
+            <th name="sale">销量</th>
+            <th name="contro">操作</th>
+        </tr>
+        </thead>
+        <tbody id="roadBus">
+
+        </tbody>
+
+    </table>
+</div>
+    <div>
+        <table class="table table-striped table-bordered table-hover dataTables-example" id="three table" name="kabR table">
+            <thead>
+            <tr>
+                <th name="year">年份</th>
+                <th name="survival">残存率</th>
+                <th name="contro">操作</th>
+            </tr>
+            </thead>
+            <tbody id="three">
+
+            </tbody>
+
+        </table>
+    </div>
+<div class='field select '>
+    <center> 选择kabR行计算方案: &nbsp;</center>
+    <div class="select margin-top-lg">
+        <select class="vertical-center" id="calcOptions" name="calcOptions">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        <div class="select__arrow"></div>
+    </div>
+</div>
+
+<button type="button" id="btnCalc" class="vertical-center">计算</button>
+<button type="button" id="btnGraph" class="vertical-center">画图</button>
+<button type="button" id="btnExcel" class="vertical-center">下载excel</button>
+
+<canvas id="canvas" width="800" height="450"></canvas>
+<form name='backToWelcomePage' action='/'>
+    <button style='padding:2rem' type='submit' id = 'logbtn'>Back To Welcome Page</button>
+</form>
+<p>Step one <a href="stepOne.html"><font size=3><strong>Click Here</strong></a></p>
+<p>Step Taxi <a href="stepTaxi.html"><font size=3><strong>Click Here</strong></a></p>
+<p>Step Urban_Bus <a href="stepUrban_Bus.html"><font size=3><strong>Click Here</strong></a></p>
+<p>Step LDT <a href="stepLDT.html"><font size=3><strong>Click Here</strong></a></p>
+<p>Step HDT <a href="HDT.html"><font size=3><strong>Click Here</strong></a></p>
+<p>Step HDTS <a href="HDTS.html"><font size=3><strong>Click Here</strong></a></p>
+<p>Step BAU <a href="BAU.html"><font size=3><strong>Click Here</strong></a></p>
+    <script>
+        $(document).ready(function () {
+            /*当页面加载完成后，触发回调函数
+            * 首先，通过ajax获取所有的字典表数据，并将数据填充到表格当中
+            * */
+            $.post("/wisdom/Rbusmodel/selectRbusmodel.do",function(data){
+                $(data).each(function(){
+                    //通过遍历回传数据生成数据表格中的数据行
+                    $("#kabR").append(
+                        "<tr><td>"+this.k+"</td>" +
+                        "<td>删除</td></tr>");
+                });
+                /*为处理过后的表格绑定数据表格功能*/
+                // $('.dataTables-example').dataTable();
+            });
+
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            /*当页面加载完成后，触发回调函数
+            * 首先，通过ajax获取所有的字典表数据，并将数据填充到表格当中
+            * */
+            $.post("/wisdom/Rbussur/selectRbussur.do",function(data){
+                $(data).each(function(){
+                    //通过遍历回传数据生成数据表格中的数据行
+                    $("#surR").append(
+                        "<tr><td>"+this.year+"</td>" +
+                        "<td>"+this.survival+"</td>" +
+                        "<td>删除</td></tr>");
+                });
+                /*为处理过后的表格绑定数据表格功能*/
+                // $('.dataTables-example').dataTable();
+            });
+
+        });
+
+    </script>
+<script>
+    $(document).ready(function () {
+        /*当页面加载完成后，触发回调函数
+        * 首先，通过ajax获取所有的字典表数据，并将数据填充到表格当中
+        * */
+        $.post("/wisdom/Rbus/selectRbus.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#roadBus").append(
+                    "<tr><td>"+this.year+"</td>" +
+                    "<td>"+this.gdpAverageGrowth+"</td>" +
+                    "<td>"+this.gdpAverage+"</td>" +
+                    "<td>"+this.stock+"</td>" +
+                    "<td>"+this.sale+"</td><br>"+
+                    "<td>删除</td></tr>");
+            });
+            /*为处理过后的表格绑定数据表格功能*/
+            // $('.dataTables-example').dataTable();
+        });
+
+    });
+
+</script>
+    <script>
+        $(document).ready(function () {
+            /*当页面加载完成后，触发回调函数
+            * 首先，通过ajax获取所有的字典表数据，并将数据填充到表格当中
+            * */
+            $.post("/wisdom/Rbussur2/selectRbussur2.do",function(data){
+                $(data).each(function(){
+                    //通过遍历回传数据生成数据表格中的数据行
+                    $("#three").append(
+                        "<tr><td>"+this.year+"</td>" +
+                        "<td>"+this.survival+"</td>" +
+                        "<td>删除</td></tr>");
+                });
+                /*为处理过后的表格绑定数据表格功能*/
+                // $('.dataTables-example').dataTable();
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
+

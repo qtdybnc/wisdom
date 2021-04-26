@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>智汇绿行</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="/wisdom/favicon.ico"> <link href="/wisdom/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/wisdom/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/wisdom/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/wisdom/static/css/animate.css" rel="stylesheet">
+    <link href="/wisdom/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <script src="/wisdom/static/chart.js"></script>
+    <script src="/wisdom/static/jquery.js"></script>
+    <script src="/wisdom/static/xlsx.full.min.js"></script>
+    <script src="/wisdom/static/FileSaver.js"></script>
+
+</head>
+
+<script type="text/javascript">
+    $(document).ready(function($) {
+
+        $.post("/wisdom/Rbusmodel/selectRbusmodelByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#kabR").append(
+                    "<tr row_id="+this.id+" table_name='kabR table'><td><div class='row_data' edit_type='click' col_name='k'>"+this.k+"</div></td>" +
+                    "<td><span class='btn_edit' table_name='kabR table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                    "<span class='btn_save' table_name='kabR table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                    "<span class='btn_cancel' table_name='kabR table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">取消</a> </span>" +
+                    "</td></tr>");
+            });
+        });
+
+        $.post("/wisdom/Rbussur/selectRbussurByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#surR").append(
+                    "<tr row_id="+this.id+" table_name='surR table'><td><div col_name='year'>"+this.year+"</div></td>" +
+                    "<td><div class='row_data' edit_type='click' col_name='survival''>"+this.survival+"</div></td>" +
+                    "<td><span class='btn_edit' table_name='surR table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                    "<span class='btn_save' table_name='surR table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                    "<span class='btn_cancel' table_name='surR table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">取消</a> </span>" +
+                    "</td></tr>");
+            });
+        });
+
+        $.post("/wisdom/Rbus/selectRbusByfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#roadBus").append(
+                    "<tr row_id="+this.id+" table_name='second table'><td><div edit_type='click' col_name='year'>"+this.year+"</div></td>" +
+                    "<td><div edit_type='click' col_name='gdpAverageGrowth'>"+this.gdpAverageGrowth+"</div></td>" +
+                    "<td><div class='row_data' edit_type='click' col_name='gdpAverage'>"+this.gdpAverage+"</div></td>" +
+                    "<td><div class='row_data' edit_type='click' col_name='stock'>"+this.stock+"</div></td>" +
+                    "<td><div edit_type='click' col_name='sale'>"+this.sale+"</div></td>"+
+                    "<td><span class='btn_edit' table_name='second table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                    "<span class='btn_save' table_name='second table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                    "<span class='btn_cancel' table_name='second table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">取消</a> </span>" +
+                    "</td></tr>");
+            });
+        });
+        $.post("/wisdom/Rbussur2/selectRbussur2Byfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#three").append(
+                    "<tr row_id="+this.id+" table_name='three table'><td><div edit_type='click' col_name='year'>"+this.year+"</div></td>" +
+                    "<td><div class='row_data' edit_type='click' col_name='survival'>"+this.survival+"</div></td>" +
+                    "<td><span class='btn_edit' table_name='three table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                    "<span class='btn_save' table_name='three table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                    "<span class='btn_cancel' table_name='three table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                    "</td></tr>");
+            });
+        });
+        $.post("/wisdom/Rbus2/selectRbus2Byfk.do",function(data){
+            $(data).each(function(){
+                //通过遍历回传数据生成数据表格中的数据行
+                $("#four").append(
+                    "<tr row_id="+this.id+" table_name='four table'><td><div edit_type='click' col_name='year'>"+this.year+"</div></td>" +
+                    "<td><div class='row_data' edit_type='click' col_name='electricProportion'>"+(this.electricProportion*100).toFixed(2)+"%"+"</div></td>" +
+                    "<td><div edit_type='click' col_name='electricSales'>"+this.electricSales+"</div></td>" +
+                    "<td><div edit_type='click' col_name='electricStock'>"+this.electricStock+"</div></td>" +
+                    "<td><span class='btn_edit' table_name='four table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                    "<span class='btn_save' table_name='four table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                    "<span class='btn_cancel' table_name='four table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">取消</a> </span>" +
+                    "</td></tr>");
+            });
+        });
+
+        $(document).find('.btn_save').hide();
+        $(document).find('.btn_cancel').hide();
+
+        //--->make div editable > start
+        $(document).on('click', '.row_data', function(event)
+        {
+            event.preventDefault();
+
+            if($(this).attr('edit_type') == 'button')
+            {
+                return false;
+            }
+
+            //make div editable
+            $(this).closest('div').attr('contenteditable', 'true');
+            //add bg css
+            $(this).addClass('bg-warning').css('padding','5px');
+
+            $(this).focus();
+        });
+        //--->make div editable > end
+
+        //--->save single field data > start
+        $(document).on('focusout', '.row_data', function(event)
+        {
+            event.preventDefault();
+
+            if($(this).attr('edit_type') == 'button')
+            {
+                return false;
+            }
+
+            var row_id = $(this).closest('tr').attr('row_id');
+            var table_name = $(this).closest('tr').attr('table_name');
+
+            var row_div = $(this)
+                .removeClass('bg-warning') //add bg css
+                .css('padding','');
+
+            var col_name = row_div.attr('col_name');
+            var col_val = row_div.html();
+
+            var arr = {};
+            arr[col_name] = col_val;
+
+            //use the "arr" object for your ajax call
+            $.extend(arr, {row_id:row_id});
+            $.extend(arr, {table_name:table_name});
+
+            //out put to show
+        <!-- $('.post_msg').html('<pre class="bg-success">'+JSON.stringify(arr, null, 2)+'</pre>'); -->
+        });
+        //--->save single field data > end
+
+        //--->button > edit > start
+        $(document).on('click', '.btn_edit', function(event)
+        {
+            event.preventDefault();
+            var tbl_row = $(this).closest('tr');
+
+            var row_id = tbl_row.attr('row_id');
+
+            tbl_row.find('.btn_save').show();
+            tbl_row.find('.btn_cancel').show();
+
+            //hide edit button
+            tbl_row.find('.btn_edit').hide();
+
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('contenteditable', 'true')
+                .attr('edit_type', 'button')
+                .addClass('bg-warning')
+                .css('padding', '3px');
+
+            //--->add the original entry > start
+            tbl_row.find('.row_data').each(function(index, val)
+            {
+                // this will help in case user decided to click on cancel button
+                $(this).attr('original_entry', $(this).html());
+            });
+            //--->add the original entry > end
+        });
+        //--->button > edit > end
+
+        //--->button > cancel > start
+        $(document).on('click', '.btn_cancel', function(event)
+        {
+            event.preventDefault();
+
+            var tbl_row = $(this).closest('tr');
+
+            var row_id = tbl_row.attr('row_id');
+
+            //hide save and cancel buttons
+            tbl_row.find('.btn_save').hide();
+            tbl_row.find('.btn_cancel').hide();
+
+            //show edit button
+            tbl_row.find('.btn_edit').show();
+
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('edit_type', 'click')
+                .removeClass('bg-warning')
+                .css('padding','');
+
+            tbl_row.find('.row_data').each(function(index, val)
+            {
+                $(this).html( $(this).attr('original_entry') );
+            });
+        });
+        //--->button > cancel > end
+
+        //--->save whole row entry > start
+        $(document).on('click', '.btn_save', function(event)
+        {
+            event.preventDefault();
+            var tbl_row = $(this).closest('tr');
+
+            var row_id = tbl_row.attr('row_id');
+            var table_name = $(this).closest('tr').attr('table_name');
+
+            //hide save and cancel buttons
+            tbl_row.find('.btn_save').hide();
+            tbl_row.find('.btn_cancel').hide();
+
+            //show edit button
+            tbl_row.find('.btn_edit').show();
+
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('edit_type', 'click')
+                .removeClass('bg-warning')
+                .css('padding','');
+
+            //--->get row data > start
+            var arr = {};
+            tbl_row.find('.row_data').each(function(index, val)
+            {
+                var col_name = $(this).attr('col_name');
+                var col_val = $(this).html();
+                arr[col_name] = col_val;
+            });
+            //--->get row data > end
+
+            //use the "arr" object for your ajax call
+            $.extend(arr, {row_id:row_id});
+            $.extend(arr, {table_name:table_name});
+
+            //out put to show
+        <!-- $('.post_msg').html('<pre class="bg-success">'+JSON.stringify(arr, null, 2) +'</pre>'); -->
+        });
+
+
+        const btnCalc = document.getElementById("btnCalc");
+
+        btnCalc.onclick = function(){
+            const kabR_table = document.getElementById("kabR table");
+            const surR_table = document.getElementById("surR table");
+            const second_table = document.getElementById("second table");
+            const three_table = document.getElementById("three table");
+            const four_table = document.getElementById("four table");
+
+
+            for (var i = 2, row; row = second_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+
+                let previous_row = second_table.rows[i - 1];
+                let previous_total = parseFloat(row.cells[2].innerText);
+                let growth_rate = parseFloat(previous_row.cells[2].innerText);
+
+                row.cells[1].innerHTML = '<td ><div edit_type="click" col_name="gdpAverageGrowth">'+ ((previous_total-growth_rate)/previous_total*100 ).toFixed(2)+'</div></td>';
+
+            }
+
+            for (var i = 2, row; row = second_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+
+                let previous_row = second_table.rows[i - 1];
+                let inventory_day = parseFloat(row.cells[3].innerText);
+                let inventory_yesterday = parseFloat(previous_row.cells[3].innerText);
+                let result=0;
+                for (var j = 2, sur;sur = surR_table.rows[j]; j++ ){
+
+                    if(i-j >= 1) {
+                        let inventory = parseFloat(second_table.rows[i-j].cells[4].innerText);
+                        let sur_tom = parseFloat(sur.cells[1].innerText);
+                        let sur_day = parseFloat(surR_table.rows[j-1].cells[1].innerText);
+                        result  =result + (inventory * (sur_day - sur_tom));
+                    }
+
+
+                }
+                <!--inventory_day - inventory_yesterday +result-->
+                //inventory_day - inventory_yesterday +result
+                second_table.rows[i].cells[4].innerHTML = '<td ><div edit_type="click" col_name="sale">'+(inventory_day - inventory_yesterday +result).toFixed(2)+'</div></td>';
+
+            }
+
+            for (var i = 1;i<=34; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+
+                let previous_total = parseFloat(four_table.rows[i].cells[1].innerText);
+                let result = parseFloat(second_table.rows[i+39].cells[4].innerText);
+
+                four_table.rows[i].cells[3].innerHTML = '<td ><div edit_type="click" col_name="electricSales">'+ (previous_total* result/100).toFixed(2) +'</div></td>';
+
+            }
+
+            for (var i = 1, row; row = four_table.rows[i]; i++) {
+
+                let result = 0;
+                let perviouse_total = parseFloat(four_table.rows[i].cells[3].innerText);
+
+                for (var j = 1,row1;row1=three_table.rows[j];j++){
+
+                    if (i - j >= 1){
+                        let sur = parseFloat(row1.cells[1].innerText);
+                        let sale = parseFloat(four_table.rows[i  - j].cells[3].innerText);
+                        result = result +  (sale * sur);
+                    }
+
+                }
+
+                row.cells[2].innerHTML = '<td ><div edit_type="click" col_name="electricProportion">'+ (perviouse_total + result).toFixed(2)  +'</div></td>';
+            }
+
+
+            //localStorage
+            var storage=window.localStorage;
+
+            var in_Road={
+                "road0":second_table.rows[43].cells[3].innerText,
+                "road1":second_table.rows[48].cells[3].innerText,
+                "road2":second_table.rows[53].cells[3].innerText,
+                "road3":second_table.rows[58].cells[3].innerText,
+                "road4":second_table.rows[63].cells[3].innerText,
+                "road5":second_table.rows[68].cells[3].innerText,
+                "road6":second_table.rows[73].cells[3].innerText
+            }
+
+            var Road=JSON.stringify(in_Road);
+            storage.setItem("inventory_Road",Road);
+
+        }
+
+
+        const btnGraph = document.getElementById("btnGraph");
+        btnGraph.onclick = function () {
+            const second_table = document.getElementById("second table");
+            const four_table = document.getElementById("four table");
+
+            let years = [];
+            let values2 = [];
+            let arr = [];
+            let values = [];
+
+
+            for (var i = 1, row; row = second_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                    <!-- console.log(col.innerText); -->
+                    <!-- col.innerText = 0; -->
+                }
+                years.push(parseFloat(row.cells[0].innerText));
+                values2.push(parseFloat(row.cells[4].innerText));
+
+            }
+
+            for ( var i = 1;i<=39;i++){
+                arr.push(0)
+            }
+
+            for (var i = 1, row; row = four_table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                    <!-- console.log(col.innerText); -->
+                    <!-- col.innerText = 0; -->
+                }
+
+                values.push(parseFloat(row.cells[3].innerText));
+
+            }
+
+            Array.prototype.push.apply(arr,values);
+
+            new Chart(document.getElementById("canvas"), {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        data: values2,
+                        label: "销售量",
+                        borderColor: "#8e5ea2",
+                        fill: false
+                    }, {
+                        data: arr,
+                        label:"电动车销量（万辆）",
+                        borderColor:"#3e95cd",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: '横轴：年， 纵轴：车辆总量(万辆)'
+                    }
+                }
+            });
+        }
+
+        const btnExcel = document.getElementById("btnExcel");
+        btnExcel.onclick = function () {
+            var wb = XLSX.utils.book_new();
+            wb.Props = {
+                Title: "model",
+                Subject: "",
+                Author: "",
+                CreatedDate: new Date()
+            };
+            wb.SheetNames.push("Test Sheet");
+            var ws_data = [];
+
+            const second_table = document.getElementById("second table");
+
+            for (var i = 0, row; row = second_table.rows[i]; i++) {
+                let rowList = []
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (var j = 0; j < row.cells.length - 1; j++) {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                    <!-- console.log(col.innerText); -->
+                    <!-- col.innerText = 0; -->
+                    rowList.push(row.cells[j].innerText)
+                }
+                ws_data.push(rowList);
+            }
+
+            var ws = XLSX.utils.aoa_to_sheet(ws_data);
+            wb.Sheets["Test Sheet"] = ws;
+
+            var wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
+
+            saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), 'model.xlsx');
+        }
+
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+
+    });
+
+</script>
+
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span style="font-size: 18px; font-weight: bold" >道路客车计算</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size: 14px">弹性系数法：V<sub>T</sub> = (1 + k * a） * V<sub>T-1</sub>(保有量保持不变)</span>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <h3>弹性系数</h3>
+                            <table class="table table-striped table-bordered table-hover " id="kabR_table" name="kabR table">
+                            <thead>
+                            <tr>
+                                <th name="k">k</th>
+                                <th name="contro">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="kabR">
+
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                            <h3>残存率</h3>
+                            <table class="table table-striped table-bordered table-hover " id="surR table" name="surR table">
+                                <thead>
+                                <tr>
+                                    <th name="year">年份</th>
+                                    <th name="survival">残存率</th>
+                                    <th name="contro">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="surR">
+
+                                </tbody>
+                             </table>
+                         </div>
+                        <div>
+                            <h3>道路客车销量/保有量预测</h3>
+                            <table class="table table-striped table-bordered table-hover " id="second table" name="second table">
+                                <thead>
+                                <tr>
+                                    <th name="year">年份</th>
+                                    <th name="gdpAverageGrowth">人均GDP增速</th>
+                                    <th name="gdpAverage">人均GDP</th>
+                                    <th name="stock">保有量</th>
+                                    <th name="sale">销量</th>
+                                    <th name="contro">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="roadBus">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <h3>电动车残存率</h3>
+                            <table class="table table-striped table-bordered table-hover " id="three table" name="three table">
+                                <thead>
+                                <tr>
+                                    <th name="year">年份</th>
+                                    <th name="survival">残存率</th>
+                                    <th name="contro">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="three">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <h3>道路客车电动化预测</h3>
+                            <table class="table table-striped table-bordered table-hover " id="four table" name="four table">
+                                <thead>
+                                <tr>
+                                    <th name="year">年份</th>
+                                    <th name="electricProportion">电动车销量比例</th>
+                                    <th name="electricSales">电动车保有量</th>
+                                    <th name="electricStock">电动车销量</th>
+                                    <th name="contro">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="four">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <center>
+        <button type="button" id="btnCalc" class="vertical-center">计算</button>
+        <button type="button" id="btnGraph" class="vertical-center">画图</button>
+        <button type="button" id="btnExcel" class="vertical-center">下载excel</button>
+    </center>
+
+    <canvas id="canvas" width="800" height="450"></canvas>
+
+    <!-- 全局js -->
+    <script src="/wisdom/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/wisdom/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/wisdom/static/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/wisdom/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/wisdom/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/wisdom/static/js/content.js?v=1.0.0"></script>
+
+
+
+</body>
+
+</html>

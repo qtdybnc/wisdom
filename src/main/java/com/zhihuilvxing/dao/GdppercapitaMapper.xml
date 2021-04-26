@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.GdppercapitaMapper">
+  <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.Gdppercapita">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="provinceid" jdbcType="INTEGER" property="provinceid" />
+    <result column="tier" jdbcType="VARCHAR" property="tier" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="g2019" jdbcType="DOUBLE" property="g2019" />
+    <result column="g2020" jdbcType="DOUBLE" property="g2020" />
+    <result column="g2021" jdbcType="DOUBLE" property="g2021" />
+    <result column="g2022" jdbcType="DOUBLE" property="g2022" />
+    <result column="g2023" jdbcType="DOUBLE" property="g2023" />
+    <result column="g2024" jdbcType="DOUBLE" property="g2024" />
+    <result column="g2025" jdbcType="DOUBLE" property="g2025" />
+    <result column="g2026" jdbcType="DOUBLE" property="g2026" />
+    <result column="g2027" jdbcType="DOUBLE" property="g2027" />
+    <result column="g2028" jdbcType="DOUBLE" property="g2028" />
+    <result column="g2029" jdbcType="DOUBLE" property="g2029" />
+    <result column="g2030" jdbcType="DOUBLE" property="g2030" />
+    <result column="g2031" jdbcType="DOUBLE" property="g2031" />
+    <result column="g2032" jdbcType="DOUBLE" property="g2032" />
+    <result column="g2033" jdbcType="DOUBLE" property="g2033" />
+    <result column="g2034" jdbcType="DOUBLE" property="g2034" />
+    <result column="g2035" jdbcType="DOUBLE" property="g2035" />
+    <result column="g2036" jdbcType="DOUBLE" property="g2036" />
+    <result column="g2037" jdbcType="DOUBLE" property="g2037" />
+    <result column="g2038" jdbcType="DOUBLE" property="g2038" />
+    <result column="g2039" jdbcType="DOUBLE" property="g2039" />
+    <result column="g2040" jdbcType="DOUBLE" property="g2040" />
+    <result column="g2041" jdbcType="DOUBLE" property="g2041" />
+    <result column="g2042" jdbcType="DOUBLE" property="g2042" />
+    <result column="g2043" jdbcType="DOUBLE" property="g2043" />
+    <result column="g2044" jdbcType="DOUBLE" property="g2044" />
+    <result column="g2045" jdbcType="DOUBLE" property="g2045" />
+    <result column="g2046" jdbcType="DOUBLE" property="g2046" />
+    <result column="g2047" jdbcType="DOUBLE" property="g2047" />
+    <result column="g2048" jdbcType="DOUBLE" property="g2048" />
+    <result column="g2049" jdbcType="DOUBLE" property="g2049" />
+    <result column="g2050" jdbcType="DOUBLE" property="g2050" />
+    <result column="g2051" jdbcType="DOUBLE" property="g2051" />
+    <result column="g2052" jdbcType="DOUBLE" property="g2052" />
+    <result column="g2053" jdbcType="DOUBLE" property="g2053" />
+    <result column="g2054" jdbcType="DOUBLE" property="g2054" />
+    <result column="g2055" jdbcType="DOUBLE" property="g2055" />
+    <result column="g2056" jdbcType="DOUBLE" property="g2056" />
+    <result column="g2057" jdbcType="DOUBLE" property="g2057" />
+    <result column="g2058" jdbcType="DOUBLE" property="g2058" />
+    <result column="g2059" jdbcType="DOUBLE" property="g2059" />
+    <result column="g2060" jdbcType="DOUBLE" property="g2060" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, provinceid, tier, city, g2019, g2020, g2021, g2022, g2023, g2024, g2025, g2026, 
+    g2027, g2028, g2029, g2030, g2031, g2032, g2033, g2034, g2035, g2036, g2037, g2038, 
+    g2039, g2040, g2041, g2042, g2043, g2044, g2045, g2046, g2047, g2048, g2049, g2050, 
+    g2051, g2052, g2053, g2054, g2055, g2056, g2057, g2058, g2059, g2060
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gdppercapita
+    where provinceid = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gdppercapita
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhihuilvxing.domain.Gdppercapita">
+    insert into gdppercapita (id, provinceid, tier, 
+      city, g2019, g2020, g2021, 
+      g2022, g2023, g2024, g2025, 
+      g2026, g2027, g2028, g2029, 
+      g2030, g2031, g2032, g2033, 
+      g2034, g2035, g2036, g2037, 
+      g2038, g2039, g2040, g2041, 
+      g2042, g2043, g2044, g2045, 
+      g2046, g2047, g2048, g2049, 
+      g2050, g2051, g2052, g2053, 
+      g2054, g2055, g2056, g2057, 
+      g2058, g2059, g2060)
+    values (#{id,jdbcType=INTEGER}, #{provinceid,jdbcType=INTEGER}, #{tier,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{g2019,jdbcType=DOUBLE}, #{g2020,jdbcType=DOUBLE}, #{g2021,jdbcType=DOUBLE}, 
+      #{g2022,jdbcType=DOUBLE}, #{g2023,jdbcType=DOUBLE}, #{g2024,jdbcType=DOUBLE}, #{g2025,jdbcType=DOUBLE}, 
+      #{g2026,jdbcType=DOUBLE}, #{g2027,jdbcType=DOUBLE}, #{g2028,jdbcType=DOUBLE}, #{g2029,jdbcType=DOUBLE}, 
+      #{g2030,jdbcType=DOUBLE}, #{g2031,jdbcType=DOUBLE}, #{g2032,jdbcType=DOUBLE}, #{g2033,jdbcType=DOUBLE}, 
+      #{g2034,jdbcType=DOUBLE}, #{g2035,jdbcType=DOUBLE}, #{g2036,jdbcType=DOUBLE}, #{g2037,jdbcType=DOUBLE}, 
+      #{g2038,jdbcType=DOUBLE}, #{g2039,jdbcType=DOUBLE}, #{g2040,jdbcType=DOUBLE}, #{g2041,jdbcType=DOUBLE}, 
+      #{g2042,jdbcType=DOUBLE}, #{g2043,jdbcType=DOUBLE}, #{g2044,jdbcType=DOUBLE}, #{g2045,jdbcType=DOUBLE}, 
+      #{g2046,jdbcType=DOUBLE}, #{g2047,jdbcType=DOUBLE}, #{g2048,jdbcType=DOUBLE}, #{g2049,jdbcType=DOUBLE}, 
+      #{g2050,jdbcType=DOUBLE}, #{g2051,jdbcType=DOUBLE}, #{g2052,jdbcType=DOUBLE}, #{g2053,jdbcType=DOUBLE}, 
+      #{g2054,jdbcType=DOUBLE}, #{g2055,jdbcType=DOUBLE}, #{g2056,jdbcType=DOUBLE}, #{g2057,jdbcType=DOUBLE}, 
+      #{g2058,jdbcType=DOUBLE}, #{g2059,jdbcType=DOUBLE}, #{g2060,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhihuilvxing.domain.Gdppercapita">
+    insert into gdppercapita
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="provinceid != null">
+        provinceid,
+      </if>
+      <if test="tier != null">
+        tier,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="g2019 != null">
+        g2019,
+      </if>
+      <if test="g2020 != null">
+        g2020,
+      </if>
+      <if test="g2021 != null">
+        g2021,
+      </if>
+      <if test="g2022 != null">
+        g2022,
+      </if>
+      <if test="g2023 != null">
+        g2023,
+      </if>
+      <if test="g2024 != null">
+        g2024,
+      </if>
+      <if test="g2025 != null">
+        g2025,
+      </if>
+      <if test="g2026 != null">
+        g2026,
+      </if>
+      <if test="g2027 != null">
+        g2027,
+      </if>
+      <if test="g2028 != null">
+        g2028,
+      </if>
+      <if test="g2029 != null">
+        g2029,
+      </if>
+      <if test="g2030 != null">
+        g2030,
+      </if>
+      <if test="g2031 != null">
+        g2031,
+      </if>
+      <if test="g2032 != null">
+        g2032,
+      </if>
+      <if test="g2033 != null">
+        g2033,
+      </if>
+      <if test="g2034 != null">
+        g2034,
+      </if>
+      <if test="g2035 != null">
+        g2035,
+      </if>
+      <if test="g2036 != null">
+        g2036,
+      </if>
+      <if test="g2037 != null">
+        g2037,
+      </if>
+      <if test="g2038 != null">
+        g2038,
+      </if>
+      <if test="g2039 != null">
+        g2039,
+      </if>
+      <if test="g2040 != null">
+        g2040,
+      </if>
+      <if test="g2041 != null">
+        g2041,
+      </if>
+      <if test="g2042 != null">
+        g2042,
+      </if>
+      <if test="g2043 != null">
+        g2043,
+      </if>
+      <if test="g2044 != null">
+        g2044,
+      </if>
+      <if test="g2045 != null">
+        g2045,
+      </if>
+      <if test="g2046 != null">
+        g2046,
+      </if>
+      <if test="g2047 != null">
+        g2047,
+      </if>
+      <if test="g2048 != null">
+        g2048,
+      </if>
+      <if test="g2049 != null">
+        g2049,
+      </if>
+      <if test="g2050 != null">
+        g2050,
+      </if>
+      <if test="g2051 != null">
+        g2051,
+      </if>
+      <if test="g2052 != null">
+        g2052,
+      </if>
+      <if test="g2053 != null">
+        g2053,
+      </if>
+      <if test="g2054 != null">
+        g2054,
+      </if>
+      <if test="g2055 != null">
+        g2055,
+      </if>
+      <if test="g2056 != null">
+        g2056,
+      </if>
+      <if test="g2057 != null">
+        g2057,
+      </if>
+      <if test="g2058 != null">
+        g2058,
+      </if>
+      <if test="g2059 != null">
+        g2059,
+      </if>
+      <if test="g2060 != null">
+        g2060,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="provinceid != null">
+        #{provinceid,jdbcType=INTEGER},
+      </if>
+      <if test="tier != null">
+        #{tier,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="g2019 != null">
+        #{g2019,jdbcType=DOUBLE},
+      </if>
+      <if test="g2020 != null">
+        #{g2020,jdbcType=DOUBLE},
+      </if>
+      <if test="g2021 != null">
+        #{g2021,jdbcType=DOUBLE},
+      </if>
+      <if test="g2022 != null">
+        #{g2022,jdbcType=DOUBLE},
+      </if>
+      <if test="g2023 != null">
+        #{g2023,jdbcType=DOUBLE},
+      </if>
+      <if test="g2024 != null">
+        #{g2024,jdbcType=DOUBLE},
+      </if>
+      <if test="g2025 != null">
+        #{g2025,jdbcType=DOUBLE},
+      </if>
+      <if test="g2026 != null">
+        #{g2026,jdbcType=DOUBLE},
+      </if>
+      <if test="g2027 != null">
+        #{g2027,jdbcType=DOUBLE},
+      </if>
+      <if test="g2028 != null">
+        #{g2028,jdbcType=DOUBLE},
+      </if>
+      <if test="g2029 != null">
+        #{g2029,jdbcType=DOUBLE},
+      </if>
+      <if test="g2030 != null">
+        #{g2030,jdbcType=DOUBLE},
+      </if>
+      <if test="g2031 != null">
+        #{g2031,jdbcType=DOUBLE},
+      </if>
+      <if test="g2032 != null">
+        #{g2032,jdbcType=DOUBLE},
+      </if>
+      <if test="g2033 != null">
+        #{g2033,jdbcType=DOUBLE},
+      </if>
+      <if test="g2034 != null">
+        #{g2034,jdbcType=DOUBLE},
+      </if>
+      <if test="g2035 != null">
+        #{g2035,jdbcType=DOUBLE},
+      </if>
+      <if test="g2036 != null">
+        #{g2036,jdbcType=DOUBLE},
+      </if>
+      <if test="g2037 != null">
+        #{g2037,jdbcType=DOUBLE},
+      </if>
+      <if test="g2038 != null">
+        #{g2038,jdbcType=DOUBLE},
+      </if>
+      <if test="g2039 != null">
+        #{g2039,jdbcType=DOUBLE},
+      </if>
+      <if test="g2040 != null">
+        #{g2040,jdbcType=DOUBLE},
+      </if>
+      <if test="g2041 != null">
+        #{g2041,jdbcType=DOUBLE},
+      </if>
+      <if test="g2042 != null">
+        #{g2042,jdbcType=DOUBLE},
+      </if>
+      <if test="g2043 != null">
+        #{g2043,jdbcType=DOUBLE},
+      </if>
+      <if test="g2044 != null">
+        #{g2044,jdbcType=DOUBLE},
+      </if>
+      <if test="g2045 != null">
+        #{g2045,jdbcType=DOUBLE},
+      </if>
+      <if test="g2046 != null">
+        #{g2046,jdbcType=DOUBLE},
+      </if>
+      <if test="g2047 != null">
+        #{g2047,jdbcType=DOUBLE},
+      </if>
+      <if test="g2048 != null">
+        #{g2048,jdbcType=DOUBLE},
+      </if>
+      <if test="g2049 != null">
+        #{g2049,jdbcType=DOUBLE},
+      </if>
+      <if test="g2050 != null">
+        #{g2050,jdbcType=DOUBLE},
+      </if>
+      <if test="g2051 != null">
+        #{g2051,jdbcType=DOUBLE},
+      </if>
+      <if test="g2052 != null">
+        #{g2052,jdbcType=DOUBLE},
+      </if>
+      <if test="g2053 != null">
+        #{g2053,jdbcType=DOUBLE},
+      </if>
+      <if test="g2054 != null">
+        #{g2054,jdbcType=DOUBLE},
+      </if>
+      <if test="g2055 != null">
+        #{g2055,jdbcType=DOUBLE},
+      </if>
+      <if test="g2056 != null">
+        #{g2056,jdbcType=DOUBLE},
+      </if>
+      <if test="g2057 != null">
+        #{g2057,jdbcType=DOUBLE},
+      </if>
+      <if test="g2058 != null">
+        #{g2058,jdbcType=DOUBLE},
+      </if>
+      <if test="g2059 != null">
+        #{g2059,jdbcType=DOUBLE},
+      </if>
+      <if test="g2060 != null">
+        #{g2060,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhihuilvxing.domain.Gdppercapita">
+    update gdppercapita
+    <set>
+      <if test="provinceid != null">
+        provinceid = #{provinceid,jdbcType=INTEGER},
+      </if>
+      <if test="tier != null">
+        tier = #{tier,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="g2019 != null">
+        g2019 = #{g2019,jdbcType=DOUBLE},
+      </if>
+      <if test="g2020 != null">
+        g2020 = #{g2020,jdbcType=DOUBLE},
+      </if>
+      <if test="g2021 != null">
+        g2021 = #{g2021,jdbcType=DOUBLE},
+      </if>
+      <if test="g2022 != null">
+        g2022 = #{g2022,jdbcType=DOUBLE},
+      </if>
+      <if test="g2023 != null">
+        g2023 = #{g2023,jdbcType=DOUBLE},
+      </if>
+      <if test="g2024 != null">
+        g2024 = #{g2024,jdbcType=DOUBLE},
+      </if>
+      <if test="g2025 != null">
+        g2025 = #{g2025,jdbcType=DOUBLE},
+      </if>
+      <if test="g2026 != null">
+        g2026 = #{g2026,jdbcType=DOUBLE},
+      </if>
+      <if test="g2027 != null">
+        g2027 = #{g2027,jdbcType=DOUBLE},
+      </if>
+      <if test="g2028 != null">
+        g2028 = #{g2028,jdbcType=DOUBLE},
+      </if>
+      <if test="g2029 != null">
+        g2029 = #{g2029,jdbcType=DOUBLE},
+      </if>
+      <if test="g2030 != null">
+        g2030 = #{g2030,jdbcType=DOUBLE},
+      </if>
+      <if test="g2031 != null">
+        g2031 = #{g2031,jdbcType=DOUBLE},
+      </if>
+      <if test="g2032 != null">
+        g2032 = #{g2032,jdbcType=DOUBLE},
+      </if>
+      <if test="g2033 != null">
+        g2033 = #{g2033,jdbcType=DOUBLE},
+      </if>
+      <if test="g2034 != null">
+        g2034 = #{g2034,jdbcType=DOUBLE},
+      </if>
+      <if test="g2035 != null">
+        g2035 = #{g2035,jdbcType=DOUBLE},
+      </if>
+      <if test="g2036 != null">
+        g2036 = #{g2036,jdbcType=DOUBLE},
+      </if>
+      <if test="g2037 != null">
+        g2037 = #{g2037,jdbcType=DOUBLE},
+      </if>
+      <if test="g2038 != null">
+        g2038 = #{g2038,jdbcType=DOUBLE},
+      </if>
+      <if test="g2039 != null">
+        g2039 = #{g2039,jdbcType=DOUBLE},
+      </if>
+      <if test="g2040 != null">
+        g2040 = #{g2040,jdbcType=DOUBLE},
+      </if>
+      <if test="g2041 != null">
+        g2041 = #{g2041,jdbcType=DOUBLE},
+      </if>
+      <if test="g2042 != null">
+        g2042 = #{g2042,jdbcType=DOUBLE},
+      </if>
+      <if test="g2043 != null">
+        g2043 = #{g2043,jdbcType=DOUBLE},
+      </if>
+      <if test="g2044 != null">
+        g2044 = #{g2044,jdbcType=DOUBLE},
+      </if>
+      <if test="g2045 != null">
+        g2045 = #{g2045,jdbcType=DOUBLE},
+      </if>
+      <if test="g2046 != null">
+        g2046 = #{g2046,jdbcType=DOUBLE},
+      </if>
+      <if test="g2047 != null">
+        g2047 = #{g2047,jdbcType=DOUBLE},
+      </if>
+      <if test="g2048 != null">
+        g2048 = #{g2048,jdbcType=DOUBLE},
+      </if>
+      <if test="g2049 != null">
+        g2049 = #{g2049,jdbcType=DOUBLE},
+      </if>
+      <if test="g2050 != null">
+        g2050 = #{g2050,jdbcType=DOUBLE},
+      </if>
+      <if test="g2051 != null">
+        g2051 = #{g2051,jdbcType=DOUBLE},
+      </if>
+      <if test="g2052 != null">
+        g2052 = #{g2052,jdbcType=DOUBLE},
+      </if>
+      <if test="g2053 != null">
+        g2053 = #{g2053,jdbcType=DOUBLE},
+      </if>
+      <if test="g2054 != null">
+        g2054 = #{g2054,jdbcType=DOUBLE},
+      </if>
+      <if test="g2055 != null">
+        g2055 = #{g2055,jdbcType=DOUBLE},
+      </if>
+      <if test="g2056 != null">
+        g2056 = #{g2056,jdbcType=DOUBLE},
+      </if>
+      <if test="g2057 != null">
+        g2057 = #{g2057,jdbcType=DOUBLE},
+      </if>
+      <if test="g2058 != null">
+        g2058 = #{g2058,jdbcType=DOUBLE},
+      </if>
+      <if test="g2059 != null">
+        g2059 = #{g2059,jdbcType=DOUBLE},
+      </if>
+      <if test="g2060 != null">
+        g2060 = #{g2060,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhihuilvxing.domain.Gdppercapita">
+    update gdppercapita
+    set provinceid = #{provinceid,jdbcType=INTEGER},
+      tier = #{tier,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      g2019 = #{g2019,jdbcType=DOUBLE},
+      g2020 = #{g2020,jdbcType=DOUBLE},
+      g2021 = #{g2021,jdbcType=DOUBLE},
+      g2022 = #{g2022,jdbcType=DOUBLE},
+      g2023 = #{g2023,jdbcType=DOUBLE},
+      g2024 = #{g2024,jdbcType=DOUBLE},
+      g2025 = #{g2025,jdbcType=DOUBLE},
+      g2026 = #{g2026,jdbcType=DOUBLE},
+      g2027 = #{g2027,jdbcType=DOUBLE},
+      g2028 = #{g2028,jdbcType=DOUBLE},
+      g2029 = #{g2029,jdbcType=DOUBLE},
+      g2030 = #{g2030,jdbcType=DOUBLE},
+      g2031 = #{g2031,jdbcType=DOUBLE},
+      g2032 = #{g2032,jdbcType=DOUBLE},
+      g2033 = #{g2033,jdbcType=DOUBLE},
+      g2034 = #{g2034,jdbcType=DOUBLE},
+      g2035 = #{g2035,jdbcType=DOUBLE},
+      g2036 = #{g2036,jdbcType=DOUBLE},
+      g2037 = #{g2037,jdbcType=DOUBLE},
+      g2038 = #{g2038,jdbcType=DOUBLE},
+      g2039 = #{g2039,jdbcType=DOUBLE},
+      g2040 = #{g2040,jdbcType=DOUBLE},
+      g2041 = #{g2041,jdbcType=DOUBLE},
+      g2042 = #{g2042,jdbcType=DOUBLE},
+      g2043 = #{g2043,jdbcType=DOUBLE},
+      g2044 = #{g2044,jdbcType=DOUBLE},
+      g2045 = #{g2045,jdbcType=DOUBLE},
+      g2046 = #{g2046,jdbcType=DOUBLE},
+      g2047 = #{g2047,jdbcType=DOUBLE},
+      g2048 = #{g2048,jdbcType=DOUBLE},
+      g2049 = #{g2049,jdbcType=DOUBLE},
+      g2050 = #{g2050,jdbcType=DOUBLE},
+      g2051 = #{g2051,jdbcType=DOUBLE},
+      g2052 = #{g2052,jdbcType=DOUBLE},
+      g2053 = #{g2053,jdbcType=DOUBLE},
+      g2054 = #{g2054,jdbcType=DOUBLE},
+      g2055 = #{g2055,jdbcType=DOUBLE},
+      g2056 = #{g2056,jdbcType=DOUBLE},
+      g2057 = #{g2057,jdbcType=DOUBLE},
+      g2058 = #{g2058,jdbcType=DOUBLE},
+      g2059 = #{g2059,jdbcType=DOUBLE},
+      g2060 = #{g2060,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

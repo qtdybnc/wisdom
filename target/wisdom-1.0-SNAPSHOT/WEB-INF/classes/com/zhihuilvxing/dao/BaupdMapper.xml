@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.BaupdMapper">
+  <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.Baupd">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cityid" jdbcType="INTEGER" property="cityid" />
+    <result column="Population_Distance_Travelled_km" jdbcType="INTEGER" property="populationDistanceTravelledKm" />
+    <result column="PV" jdbcType="DOUBLE" property="pv" />
+    <result column="Taxi" jdbcType="DOUBLE" property="taxi" />
+    <result column="LDT" jdbcType="DOUBLE" property="ldt" />
+    <result column="Urban_Bus" jdbcType="DOUBLE" property="urbanBus" />
+    <result column="Road_Bus" jdbcType="DOUBLE" property="roadBus" />
+    <result column="HDV" jdbcType="DOUBLE" property="hdv" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cityid, Population_Distance_Travelled_km, PV, Taxi, LDT, Urban_Bus, Road_Bus, 
+    HDV
+  </sql>
+  <select id="selectBaupd" resultMap="BaseResultMap">
+    select id,  Population_Distance_Travelled_km, PV, Taxi, LDT, Urban_Bus, Road_Bus, HDV from baupd
+  </select>
+  <select id="selectBaupdByfk" resultMap="BaseResultMap">
+     select id,  Population_Distance_Travelled_km, PV, Taxi, LDT, Urban_Bus, Road_Bus, HDV from baupd where cityid = #{cityid}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from baupd
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from baupd
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhihuilvxing.domain.Baupd">
+    insert into baupd (id, cityid, Population_Distance_Travelled_km, 
+      PV, Taxi, LDT, Urban_Bus, 
+      Road_Bus, HDV)
+    values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{populationDistanceTravelledKm,jdbcType=INTEGER}, 
+      #{pv,jdbcType=DOUBLE}, #{taxi,jdbcType=DOUBLE}, #{ldt,jdbcType=DOUBLE}, #{urbanBus,jdbcType=DOUBLE}, 
+      #{roadBus,jdbcType=DOUBLE}, #{hdv,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhihuilvxing.domain.Baupd">
+    insert into baupd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cityid != null">
+        cityid,
+      </if>
+      <if test="populationDistanceTravelledKm != null">
+        Population_Distance_Travelled_km,
+      </if>
+      <if test="pv != null">
+        PV,
+      </if>
+      <if test="taxi != null">
+        Taxi,
+      </if>
+      <if test="ldt != null">
+        LDT,
+      </if>
+      <if test="urbanBus != null">
+        Urban_Bus,
+      </if>
+      <if test="roadBus != null">
+        Road_Bus,
+      </if>
+      <if test="hdv != null">
+        HDV,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cityid != null">
+        #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="populationDistanceTravelledKm != null">
+        #{populationDistanceTravelledKm,jdbcType=INTEGER},
+      </if>
+      <if test="pv != null">
+        #{pv,jdbcType=DOUBLE},
+      </if>
+      <if test="taxi != null">
+        #{taxi,jdbcType=DOUBLE},
+      </if>
+      <if test="ldt != null">
+        #{ldt,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBus != null">
+        #{urbanBus,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBus != null">
+        #{roadBus,jdbcType=DOUBLE},
+      </if>
+      <if test="hdv != null">
+        #{hdv,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhihuilvxing.domain.Baupd">
+    update baupd
+    <set>
+      <if test="cityid != null">
+        cityid = #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="populationDistanceTravelledKm != null">
+        Population_Distance_Travelled_km = #{populationDistanceTravelledKm,jdbcType=INTEGER},
+      </if>
+      <if test="pv != null">
+        PV = #{pv,jdbcType=DOUBLE},
+      </if>
+      <if test="taxi != null">
+        Taxi = #{taxi,jdbcType=DOUBLE},
+      </if>
+      <if test="ldt != null">
+        LDT = #{ldt,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBus != null">
+        Urban_Bus = #{urbanBus,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBus != null">
+        Road_Bus = #{roadBus,jdbcType=DOUBLE},
+      </if>
+      <if test="hdv != null">
+        HDV = #{hdv,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhihuilvxing.domain.Baupd">
+    update baupd
+    set cityid = #{cityid,jdbcType=INTEGER},
+      Population_Distance_Travelled_km = #{populationDistanceTravelledKm,jdbcType=INTEGER},
+      PV = #{pv,jdbcType=DOUBLE},
+      Taxi = #{taxi,jdbcType=DOUBLE},
+      LDT = #{ldt,jdbcType=DOUBLE},
+      Urban_Bus = #{urbanBus,jdbcType=DOUBLE},
+      Road_Bus = #{roadBus,jdbcType=DOUBLE},
+      HDV = #{hdv,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

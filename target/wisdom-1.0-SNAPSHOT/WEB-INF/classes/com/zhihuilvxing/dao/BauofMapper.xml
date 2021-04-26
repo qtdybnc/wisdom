@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.BauofMapper">
+  <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.Bauof">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cityid" jdbcType="INTEGER" property="cityid" />
+    <result column="of_population_for_stage" jdbcType="DOUBLE" property="ofPopulationForStage" />
+    <result column="PVstage0" jdbcType="DOUBLE" property="pvstage0" />
+    <result column="PVstage1" jdbcType="DOUBLE" property="pvstage1" />
+    <result column="PVstage2" jdbcType="DOUBLE" property="pvstage2" />
+    <result column="PVstage3" jdbcType="DOUBLE" property="pvstage3" />
+    <result column="PVstage4" jdbcType="DOUBLE" property="pvstage4" />
+    <result column="Taxistage0" jdbcType="DOUBLE" property="taxistage0" />
+    <result column="Taxistage1" jdbcType="DOUBLE" property="taxistage1" />
+    <result column="Taxistage2" jdbcType="DOUBLE" property="taxistage2" />
+    <result column="Taxistage3" jdbcType="DOUBLE" property="taxistage3" />
+    <result column="Taxistage4" jdbcType="DOUBLE" property="taxistage4" />
+    <result column="LDTstage0" jdbcType="DOUBLE" property="ldtstage0" />
+    <result column="LDTstage1" jdbcType="DOUBLE" property="ldtstage1" />
+    <result column="LDTstage2" jdbcType="DOUBLE" property="ldtstage2" />
+    <result column="LDTstage3" jdbcType="DOUBLE" property="ldtstage3" />
+    <result column="LDTstage4" jdbcType="DOUBLE" property="ldtstage4" />
+    <result column="Urban_Busstage0" jdbcType="DOUBLE" property="urbanBusstage0" />
+    <result column="Urban_Busstage1" jdbcType="DOUBLE" property="urbanBusstage1" />
+    <result column="Urban_Busstage2" jdbcType="DOUBLE" property="urbanBusstage2" />
+    <result column="Urban_Busstage3" jdbcType="DOUBLE" property="urbanBusstage3" />
+    <result column="Urban_Busstage4" jdbcType="DOUBLE" property="urbanBusstage4" />
+    <result column="Road_Busstage0" jdbcType="DOUBLE" property="roadBusstage0" />
+    <result column="Road_Busstage1" jdbcType="DOUBLE" property="roadBusstage1" />
+    <result column="Road_Busstage2" jdbcType="DOUBLE" property="roadBusstage2" />
+    <result column="Road_Busstage3" jdbcType="DOUBLE" property="roadBusstage3" />
+    <result column="Road_Busstage4" jdbcType="DOUBLE" property="roadBusstage4" />
+    <result column="HDTstage0" jdbcType="DOUBLE" property="hdtstage0" />
+    <result column="HDTstage1" jdbcType="DOUBLE" property="hdtstage1" />
+    <result column="HDTstage2" jdbcType="DOUBLE" property="hdtstage2" />
+    <result column="HDTstage3" jdbcType="DOUBLE" property="hdtstage3" />
+    <result column="HDTstage4" jdbcType="DOUBLE" property="hdtstage4" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cityid, of_population_for_stage, PVstage0, PVstage1, PVstage2, PVstage3,
+    PVstage4, Taxistage0, Taxistage1, Taxistage2, Taxistage3, Taxistage4, LDTstage0, 
+    LDTstage1, LDTstage2, LDTstage3, LDTstage4, Urban_Busstage0, Urban_Busstage1, Urban_Busstage2, 
+    Urban_Busstage3, Urban_Busstage4, Road_Busstage0, Road_Busstage1, Road_Busstage2, 
+    Road_Busstage3, Road_Busstage4, HDTstage0, HDTstage1, HDTstage2, HDTstage3, HDTstage4
+  </sql>
+  <select id="selectBauof" resultMap="BaseResultMap">
+    select id,of_population_for_stage, PVstage0, PVstage1, PVstage2, PVstage3,
+    PVstage4, Taxistage0, Taxistage1, Taxistage2, Taxistage3, Taxistage4, LDTstage0,
+    LDTstage1, LDTstage2, LDTstage3, LDTstage4, Urban_Busstage0, Urban_Busstage1, Urban_Busstage2,
+    Urban_Busstage3, Urban_Busstage4, Road_Busstage0, Road_Busstage1, Road_Busstage2,
+    Road_Busstage3, Road_Busstage4, HDTstage0, HDTstage1, HDTstage2, HDTstage3, HDTstage4 from bauof
+  </select>
+  <select id="selectBauofByfk" resultMap="BaseResultMap">
+    select id,of_population_for_stage, PVstage0, PVstage1, PVstage2, PVstage3,
+    PVstage4, Taxistage0, Taxistage1, Taxistage2, Taxistage3, Taxistage4, LDTstage0,
+    LDTstage1, LDTstage2, LDTstage3, LDTstage4, Urban_Busstage0, Urban_Busstage1, Urban_Busstage2,
+    Urban_Busstage3, Urban_Busstage4, Road_Busstage0, Road_Busstage1, Road_Busstage2,
+    Road_Busstage3, Road_Busstage4, HDTstage0, HDTstage1, HDTstage2, HDTstage3, HDTstage4 from bauof where cityid = #{cityid}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bauof
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bauof
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhihuilvxing.domain.Bauof">
+    insert into bauof (id, cityid, mileage, 
+      of_population_for_stage, PVstage0, PVstage1, 
+      PVstage2, PVstage3, PVstage4, 
+      Taxistage0, Taxistage1, Taxistage2, 
+      Taxistage3, Taxistage4, LDTstage0, 
+      LDTstage1, LDTstage2, LDTstage3, 
+      LDTstage4, Urban_Busstage0, Urban_Busstage1, 
+      Urban_Busstage2, Urban_Busstage3, Urban_Busstage4, 
+      Road_Busstage0, Road_Busstage1, Road_Busstage2, 
+      Road_Busstage3, Road_Busstage4, HDTstage0, 
+      HDTstage1, HDTstage2, HDTstage3, 
+      HDTstage4)
+    values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{mileage,jdbcType=INTEGER}, 
+      #{ofPopulationForStage,jdbcType=DOUBLE}, #{pvstage0,jdbcType=DOUBLE}, #{pvstage1,jdbcType=DOUBLE}, 
+      #{pvstage2,jdbcType=DOUBLE}, #{pvstage3,jdbcType=DOUBLE}, #{pvstage4,jdbcType=DOUBLE}, 
+      #{taxistage0,jdbcType=DOUBLE}, #{taxistage1,jdbcType=DOUBLE}, #{taxistage2,jdbcType=DOUBLE}, 
+      #{taxistage3,jdbcType=DOUBLE}, #{taxistage4,jdbcType=DOUBLE}, #{ldtstage0,jdbcType=DOUBLE}, 
+      #{ldtstage1,jdbcType=DOUBLE}, #{ldtstage2,jdbcType=DOUBLE}, #{ldtstage3,jdbcType=DOUBLE}, 
+      #{ldtstage4,jdbcType=DOUBLE}, #{urbanBusstage0,jdbcType=DOUBLE}, #{urbanBusstage1,jdbcType=DOUBLE}, 
+      #{urbanBusstage2,jdbcType=DOUBLE}, #{urbanBusstage3,jdbcType=DOUBLE}, #{urbanBusstage4,jdbcType=DOUBLE}, 
+      #{roadBusstage0,jdbcType=DOUBLE}, #{roadBusstage1,jdbcType=DOUBLE}, #{roadBusstage2,jdbcType=DOUBLE}, 
+      #{roadBusstage3,jdbcType=DOUBLE}, #{roadBusstage4,jdbcType=DOUBLE}, #{hdtstage0,jdbcType=DOUBLE}, 
+      #{hdtstage1,jdbcType=DOUBLE}, #{hdtstage2,jdbcType=DOUBLE}, #{hdtstage3,jdbcType=DOUBLE}, 
+      #{hdtstage4,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhihuilvxing.domain.Bauof">
+    insert into bauof
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cityid != null">
+        cityid,
+      </if>
+      <if test="mileage != null">
+        mileage,
+      </if>
+      <if test="ofPopulationForStage != null">
+        of_population_for_stage,
+      </if>
+      <if test="pvstage0 != null">
+        PVstage0,
+      </if>
+      <if test="pvstage1 != null">
+        PVstage1,
+      </if>
+      <if test="pvstage2 != null">
+        PVstage2,
+      </if>
+      <if test="pvstage3 != null">
+        PVstage3,
+      </if>
+      <if test="pvstage4 != null">
+        PVstage4,
+      </if>
+      <if test="taxistage0 != null">
+        Taxistage0,
+      </if>
+      <if test="taxistage1 != null">
+        Taxistage1,
+      </if>
+      <if test="taxistage2 != null">
+        Taxistage2,
+      </if>
+      <if test="taxistage3 != null">
+        Taxistage3,
+      </if>
+      <if test="taxistage4 != null">
+        Taxistage4,
+      </if>
+      <if test="ldtstage0 != null">
+        LDTstage0,
+      </if>
+      <if test="ldtstage1 != null">
+        LDTstage1,
+      </if>
+      <if test="ldtstage2 != null">
+        LDTstage2,
+      </if>
+      <if test="ldtstage3 != null">
+        LDTstage3,
+      </if>
+      <if test="ldtstage4 != null">
+        LDTstage4,
+      </if>
+      <if test="urbanBusstage0 != null">
+        Urban_Busstage0,
+      </if>
+      <if test="urbanBusstage1 != null">
+        Urban_Busstage1,
+      </if>
+      <if test="urbanBusstage2 != null">
+        Urban_Busstage2,
+      </if>
+      <if test="urbanBusstage3 != null">
+        Urban_Busstage3,
+      </if>
+      <if test="urbanBusstage4 != null">
+        Urban_Busstage4,
+      </if>
+      <if test="roadBusstage0 != null">
+        Road_Busstage0,
+      </if>
+      <if test="roadBusstage1 != null">
+        Road_Busstage1,
+      </if>
+      <if test="roadBusstage2 != null">
+        Road_Busstage2,
+      </if>
+      <if test="roadBusstage3 != null">
+        Road_Busstage3,
+      </if>
+      <if test="roadBusstage4 != null">
+        Road_Busstage4,
+      </if>
+      <if test="hdtstage0 != null">
+        HDTstage0,
+      </if>
+      <if test="hdtstage1 != null">
+        HDTstage1,
+      </if>
+      <if test="hdtstage2 != null">
+        HDTstage2,
+      </if>
+      <if test="hdtstage3 != null">
+        HDTstage3,
+      </if>
+      <if test="hdtstage4 != null">
+        HDTstage4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cityid != null">
+        #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="mileage != null">
+        #{mileage,jdbcType=INTEGER},
+      </if>
+      <if test="ofPopulationForStage != null">
+        #{ofPopulationForStage,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage0 != null">
+        #{pvstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage1 != null">
+        #{pvstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage2 != null">
+        #{pvstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage3 != null">
+        #{pvstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage4 != null">
+        #{pvstage4,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage0 != null">
+        #{taxistage0,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage1 != null">
+        #{taxistage1,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage2 != null">
+        #{taxistage2,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage3 != null">
+        #{taxistage3,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage4 != null">
+        #{taxistage4,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage0 != null">
+        #{ldtstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage1 != null">
+        #{ldtstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage2 != null">
+        #{ldtstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage3 != null">
+        #{ldtstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage4 != null">
+        #{ldtstage4,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage0 != null">
+        #{urbanBusstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage1 != null">
+        #{urbanBusstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage2 != null">
+        #{urbanBusstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage3 != null">
+        #{urbanBusstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage4 != null">
+        #{urbanBusstage4,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage0 != null">
+        #{roadBusstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage1 != null">
+        #{roadBusstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage2 != null">
+        #{roadBusstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage3 != null">
+        #{roadBusstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage4 != null">
+        #{roadBusstage4,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage0 != null">
+        #{hdtstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage1 != null">
+        #{hdtstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage2 != null">
+        #{hdtstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage3 != null">
+        #{hdtstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage4 != null">
+        #{hdtstage4,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhihuilvxing.domain.Bauof">
+    update bauof
+    <set>
+      <if test="cityid != null">
+        cityid = #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="mileage != null">
+        mileage = #{mileage,jdbcType=INTEGER},
+      </if>
+      <if test="ofPopulationForStage != null">
+        of_population_for_stage = #{ofPopulationForStage,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage0 != null">
+        PVstage0 = #{pvstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage1 != null">
+        PVstage1 = #{pvstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage2 != null">
+        PVstage2 = #{pvstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage3 != null">
+        PVstage3 = #{pvstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="pvstage4 != null">
+        PVstage4 = #{pvstage4,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage0 != null">
+        Taxistage0 = #{taxistage0,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage1 != null">
+        Taxistage1 = #{taxistage1,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage2 != null">
+        Taxistage2 = #{taxistage2,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage3 != null">
+        Taxistage3 = #{taxistage3,jdbcType=DOUBLE},
+      </if>
+      <if test="taxistage4 != null">
+        Taxistage4 = #{taxistage4,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage0 != null">
+        LDTstage0 = #{ldtstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage1 != null">
+        LDTstage1 = #{ldtstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage2 != null">
+        LDTstage2 = #{ldtstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage3 != null">
+        LDTstage3 = #{ldtstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="ldtstage4 != null">
+        LDTstage4 = #{ldtstage4,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage0 != null">
+        Urban_Busstage0 = #{urbanBusstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage1 != null">
+        Urban_Busstage1 = #{urbanBusstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage2 != null">
+        Urban_Busstage2 = #{urbanBusstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage3 != null">
+        Urban_Busstage3 = #{urbanBusstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="urbanBusstage4 != null">
+        Urban_Busstage4 = #{urbanBusstage4,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage0 != null">
+        Road_Busstage0 = #{roadBusstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage1 != null">
+        Road_Busstage1 = #{roadBusstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage2 != null">
+        Road_Busstage2 = #{roadBusstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage3 != null">
+        Road_Busstage3 = #{roadBusstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="roadBusstage4 != null">
+        Road_Busstage4 = #{roadBusstage4,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage0 != null">
+        HDTstage0 = #{hdtstage0,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage1 != null">
+        HDTstage1 = #{hdtstage1,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage2 != null">
+        HDTstage2 = #{hdtstage2,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage3 != null">
+        HDTstage3 = #{hdtstage3,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtstage4 != null">
+        HDTstage4 = #{hdtstage4,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhihuilvxing.domain.Bauof">
+    update bauof
+    set cityid = #{cityid,jdbcType=INTEGER},
+      mileage = #{mileage,jdbcType=INTEGER},
+      of_population_for_stage = #{ofPopulationForStage,jdbcType=DOUBLE},
+      PVstage0 = #{pvstage0,jdbcType=DOUBLE},
+      PVstage1 = #{pvstage1,jdbcType=DOUBLE},
+      PVstage2 = #{pvstage2,jdbcType=DOUBLE},
+      PVstage3 = #{pvstage3,jdbcType=DOUBLE},
+      PVstage4 = #{pvstage4,jdbcType=DOUBLE},
+      Taxistage0 = #{taxistage0,jdbcType=DOUBLE},
+      Taxistage1 = #{taxistage1,jdbcType=DOUBLE},
+      Taxistage2 = #{taxistage2,jdbcType=DOUBLE},
+      Taxistage3 = #{taxistage3,jdbcType=DOUBLE},
+      Taxistage4 = #{taxistage4,jdbcType=DOUBLE},
+      LDTstage0 = #{ldtstage0,jdbcType=DOUBLE},
+      LDTstage1 = #{ldtstage1,jdbcType=DOUBLE},
+      LDTstage2 = #{ldtstage2,jdbcType=DOUBLE},
+      LDTstage3 = #{ldtstage3,jdbcType=DOUBLE},
+      LDTstage4 = #{ldtstage4,jdbcType=DOUBLE},
+      Urban_Busstage0 = #{urbanBusstage0,jdbcType=DOUBLE},
+      Urban_Busstage1 = #{urbanBusstage1,jdbcType=DOUBLE},
+      Urban_Busstage2 = #{urbanBusstage2,jdbcType=DOUBLE},
+      Urban_Busstage3 = #{urbanBusstage3,jdbcType=DOUBLE},
+      Urban_Busstage4 = #{urbanBusstage4,jdbcType=DOUBLE},
+      Road_Busstage0 = #{roadBusstage0,jdbcType=DOUBLE},
+      Road_Busstage1 = #{roadBusstage1,jdbcType=DOUBLE},
+      Road_Busstage2 = #{roadBusstage2,jdbcType=DOUBLE},
+      Road_Busstage3 = #{roadBusstage3,jdbcType=DOUBLE},
+      Road_Busstage4 = #{roadBusstage4,jdbcType=DOUBLE},
+      HDTstage0 = #{hdtstage0,jdbcType=DOUBLE},
+      HDTstage1 = #{hdtstage1,jdbcType=DOUBLE},
+      HDTstage2 = #{hdtstage2,jdbcType=DOUBLE},
+      HDTstage3 = #{hdtstage3,jdbcType=DOUBLE},
+      HDTstage4 = #{hdtstage4,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>智汇绿行</title>
+
+    <link rel="shortcut icon" href="/wisdom/favicon.ico"> <link href="/wisdom/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/wisdom/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <link href="/wisdom/static/css/animate.css" rel="stylesheet">
+    <link href="/wisdom/static/css/style.css?v=4.1.0" rel="stylesheet">
+    
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="row  border-bottom white-bg dashboard-header">
+        <div class="col-md-12">
+            <div class="form-group">
+                <h3>选择计算范围</h3>
+                <label class="col-sm-3 control-label">省</label>
+                <div class="col-sm-9">
+                    <select class="form-control" id="province" name="province" onchange="provinceChange()">
+                        <option value="null">请选择</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">市</label>
+                <div class="col-sm-9">
+                    <select class="form-control" id="city" name="city" onchange="cityChange()">
+                        <option value="null">请选择</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <h3>选择计算污染物</h3>
+                <label class="col-sm-3 control-label">污染物</label>
+                <div class="col-sm-9">
+                    <select class="form-control" id="mode" name="mode" onchange="modeChange()">
+                        <option value="null">请选择</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>不同车型行驶里程参数（公里）</h3>
+            <table class="table table-striped table-bordered table-hover " id="mil table" name="mil table">
+                <thead>
+                <tr>
+                    <th name="mileage">mileage</th>
+                    <th name="pv">PV</th>
+                    <th name="taxi">Taxi</th>
+                    <th name="ldt">LDT</th>
+                    <th name="urbanBus">Urban Bus</th>
+                    <th name="roadBus">Road Bus</th>
+                    <th name="hdvTruck">HDV</th>
+                    <th name="contro">操作</th>
+                </tr>
+                </thead>
+                <tbody id="mil">
+
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>不同车型分阶段燃油耗（升/100公里）</h3>
+            <table class="table table-striped table-bordered table-hover " id="fe table" name="fe table">
+                <thead>
+                <tr>
+                    <th name="feNumbers">FE numbers</th>
+                    <th name="pv">PV</th>
+                    <th name="taxi">Taxi</th>
+                    <th name="ldt">LDT</th>
+                    <th name="urbanBus">Urban Bus</th>
+                    <th name="roadBus">Road Bus</th>
+                    <th name="hdv">HDV</th>
+                    <th name="contro">操作</th>
+                </tr>
+                </thead>
+                <tbody id="ef">
+
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>不同车型排放水平（克/100公里）</h3>
+            <table class="table table-striped table-bordered table-hover " id="ab table" name="ab table">
+                <thead>
+                <tr>
+                    <th name="feNumbers">FE numbers</th>
+                    <th name="pv">PV</th>
+                    <th name="taxi">Taxi</th>
+                    <th name="ldt">LDT</th>
+                    <th name="urbanBus">Urban Bus</th>
+                    <th name="roadBus">Road Bus</th>
+                    <th name="hdv">HDV</th>
+                    <th name="contro">操作</th>
+                </tr>
+                </thead>
+                <tbody id="ab">
+
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>电车车分车型销售比（%）</h3>
+            <table class="table table-striped table-bordered table-hover " id="ev table" name="ev table">
+                <thead>
+                <tr>
+                    <th name="ev">EV sales fraction</th>
+                    <th name="pv">PV</th>
+                    <th name="taxi">Taxi</th>
+                    <th name="urbanBus">Urban Bus</th>
+                    <th name="roadBus">Road Bus</th>
+                    <th name="ldt">LDT</th>
+                    <th name="hdts">HDTS</th>
+                    <th name="hdt">HDT</th>
+                    <th name="contro">操作</th>
+                </tr>
+                </thead>
+                <tbody id="ev">
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <center>
+        <button type="button" id="btnCalc" class="vertical-center">保存</button>
+    </center>
+
+    <!-- 全局js -->
+    <script src="/wisdom/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/wisdom/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/wisdom/static/js/plugins/layer/layer.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/wisdom/static/js/content.js"></script>
+
+    <!-- 欢迎信息 -->
+    <script src="/wisdom/static/js/welcome.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.post("/wisdom/Pc/selectPc.do" ,function(data){
+                for(var i =0; i<data.length; i++){
+                    var pc = data[i];
+                    $("#province").append("<option onclick='pr' value='"+pc.provinceid+"'>"+pc.province+"</option>");
+                }
+            });
+
+            $.post("/wisdom/Mode/selectMode.do",function (data) {
+                for (var i=0;i<data.length;i++){
+                    var mode = data[i];
+                    $("#mode").append("<option onclick='mo' value='"+mode.modeid+"'>"+mode.mode+"</option>")
+                }
+            })
+            $.post("/wisdom/Baumil/selectBaumil.do",function (data) {
+                $(data).each(function () {
+                    $("#mil").append(
+                        "<tr row_id="+this.id+" table_name='mil table'><td><div edit_type='click' col_name='mileage'>"+this.mileage+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='pv'>"+this.pv+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='taxi'>"+this.taxi+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='ldt'>"+this.ldt+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='urbanBus'>"+this.urbanBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='roadBus'>"+this.roadBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdvTruck'>"+this.hdvTruck+"</div></td>" +
+                        "<td><span class='btn_edit' table_name='mil table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                        "<span class='btn_save' table_name='mil table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                        "<span class='btn_cancel' table_name='mil table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                        "</td></tr>"
+                    )
+                })
+
+            })
+
+            $.post("/wisdom/Baufe/selectBaufe.do",function (data) {
+                $(data).each(function () {
+                    $("#ef").append(
+                        "<tr row_id="+this.id+" table_name='fe table'><td><div edit_type='click' col_name='mileage'>"+this.feNumbers+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='pv'>"+this.pv+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='taxi'>"+this.taxi+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='ldt'>"+this.ldt+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='urbanBus'>"+this.urbanBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='roadBus'>"+this.roadBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdv'>"+this.hdv+"</div></td>" +
+                        "<td><span class='btn_edit' table_name='fe table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                        "<span class='btn_save' table_name='fe table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                        "<span class='btn_cancel' table_name='fe table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                        "</td></tr>"
+                    )
+                })
+
+            })
+
+            $.post("/wisdom/Baufe/selectBaufe.do",function (data) {
+                $(data).each(function () {
+                    $("#ab").append(
+                        "<tr row_id="+this.id+" table_name='fe table'><td><div edit_type='click' col_name='mileage'>"+this.feNumbers+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='pv'>"+this.pv+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='taxi'>"+this.taxi+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='ldt'>"+this.ldt+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='urbanBus'>"+this.urbanBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='roadBus'>"+this.roadBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdv'>"+this.hdv+"</div></td>" +
+                        "<td><span class='btn_edit' table_name='fe table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                        "<span class='btn_save' table_name='fe table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                        "<span class='btn_cancel' table_name='fe table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                        "</td></tr>"
+                    )
+                })
+
+            })
+
+            $.post("/wisdom/ParameterEV/selectParameterEV.do",function (data) {
+                $(data).each(function () {
+                    $("#ev").append(
+                        "<tr row_id="+this.id+" table_name='ev table'><td><div edit_type='click' col_name='ev'>"+this.ev+"</td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='pv'>"+(this.pv*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='taxi'>"+(this.taxi*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='ldt'>"+(this.ldt*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='urbanBus'>"+(this.urbanBus*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='roadBus'>"+(this.roadBus*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdts'>"+(this.hdts*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdt'>"+(this.hdt*100).toFixed(2)+"</div></td>"+
+                        "<td><span class='btn_edit' table_name='ev table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                        "<span class='btn_save' table_name='ev table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                        "<span class='btn_cancel' table_name='ev table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                        "</td></tr>"
+                    )
+                })
+
+            })
+    });
+
+        function provinceChange(){
+            var id = $("#province").val();
+
+            $("#city").empty();
+            $("#city").append(" <option value=\"\">请选择城市</option>");
+            $.post("/wisdom/Gdppercapita/selectGdppercapita.do?provinceid="+id,function(data){
+                $(data).each(function(){ $("#city").append("<option value='"+this.id+"'>"+this.city+"</option>");
+                });
+            });
+        }
+
+        function cityChange(){
+            var id = $("#city").val();
+            $.post("/wisdom/Cityid/cityid.do?cityid="+id,function(data){
+
+            });
+        }
+
+        function modeChange() {
+            var id = $("#mode").val();
+            $("#mil").empty();
+            $("#ef").empty();
+            $("#ev").empty();
+            $.post("/wisdom/Baumil/selectBaumilByf.do?modeid="+id,function (data) {
+                $(data).each(function () {
+                    $("#mil").append(
+                        "<tr row_id="+this.id+" table_name='mil table'><td><div edit_type='click' col_name='mileage'>"+this.mileage+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='pv'>"+this.pv+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='taxi'>"+this.taxi+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='ldt'>"+this.ldt+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='urbanBus'>"+this.urbanBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='roadBus'>"+this.roadBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdvTruck'>"+this.hdvTruck+"</div></td>" +
+                        "<td><span class='btn_edit' table_name='mil table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                        "<span class='btn_save' table_name='mil table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                        "<span class='btn_cancel' table_name='mil table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                        "</td></tr>"
+                    )
+                })
+
+            })
+
+            $.post("/wisdom/Baufe/selectBaufeByf.do?modeid="+id,function (data) {
+                $(data).each(function () {
+                    $("#ef").append(
+                        "<tr row_id="+this.id+" table_name='fe table'><td><div edit_type='click' col_name='mileage'>"+this.feNumbers+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='pv'>"+this.pv+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='taxi'>"+this.taxi+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='ldt'>"+this.ldt+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='urbanBus'>"+this.urbanBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='roadBus'>"+this.roadBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdv'>"+this.hdv+"</div></td>" +
+                        "<td><span class='btn_edit' table_name='fe table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                        "<span class='btn_save' table_name='fe table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                        "<span class='btn_cancel' table_name='fe table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                        "</td></tr>"
+                    )
+                })
+
+            })
+
+            $.post("/wisdom/Baufe/selectBaufeByf.do?modeid="+id,function (data) {
+                $(data).each(function () {
+                    $("#ab").append(
+                        "<tr row_id="+this.id+" table_name='fe table'><td><div edit_type='click' col_name='mileage'>"+this.feNumbers+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='pv'>"+this.pv+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='taxi'>"+this.taxi+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='ldt'>"+this.ldt+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='urbanBus'>"+this.urbanBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='roadBus'>"+this.roadBus+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdv'>"+this.hdv+"</div></td>" +
+                        "<td><span class='btn_edit' table_name='fe table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                        "<span class='btn_save' table_name='fe table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                        "<span class='btn_cancel' table_name='fe table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                        "</td></tr>"
+                    )
+                })
+
+            })
+
+            $.post("/wisdom/ParameterEV/selectParameterEVByf.do?modeid="+id,function (data) {
+                $(data).each(function () {
+                    $("#ev").append(
+                        "<tr row_id="+this.id+" table_name='ev table'><td><div edit_type='click' col_name='ev'>"+this.ev+"</td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='pv'>"+(this.pv*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='taxi'>"+(this.taxi*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='ldt'>"+(this.ldt*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='urbanBus'>"+(this.urbanBus*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='roadBus'>"+(this.roadBus*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdts'>"+(this.hdts*100).toFixed(2)+"</div></td>" +
+                        "<td><div class='row_data' edit_type='click' col_name='hdt'>"+(this.hdt*100).toFixed(2)+"</div></td>"+
+                        "<td><span class='btn_edit' table_name='ev table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">编辑</a> </span>" +
+                        "<span class='btn_save' table_name='ev table'> <a href='#' class='btn btn-link ' row_id = "+ this.id+ ">保存</a> </span>" +
+                        "<span class='btn_cancel' table_name='ev table'> <a href='#' class='btn btn-link '  row_id = "+ this.id+ ">取消</a> </span>" +
+                        "</td></tr>"
+                    )
+                })
+
+            })
+        }
+
+
+        $(document).find('.btn_save').hide();
+        $(document).find('.btn_cancel').hide();
+
+        //--->make div editable > start
+        $(document).on('click', '.row_data', function(event)
+        {
+            event.preventDefault();
+
+            if($(this).attr('edit_type') == 'button')
+            {
+                return false;
+            }
+
+            //make div editable
+            $(this).closest('div').attr('contenteditable', 'true');
+            //add bg css
+            $(this).addClass('bg-warning').css('padding','5px');
+
+            $(this).focus();
+        });
+        //--->make div editable > end
+
+        //--->save single field data > start
+        $(document).on('focusout', '.row_data', function(event)
+        {
+            event.preventDefault();
+
+            if($(this).attr('edit_type') == 'button')
+            {
+                return false;
+            }
+
+            var row_id = $(this).closest('tr').attr('row_id');
+            var table_name = $(this).closest('tr').attr('table_name');
+
+            var row_div = $(this)
+                .removeClass('bg-warning') //add bg css
+                .css('padding','');
+
+            var col_name = row_div.attr('col_name');
+            var col_val = row_div.html();
+
+            var arr = {};
+            arr[col_name] = col_val;
+
+            //use the "arr" object for your ajax call
+            $.extend(arr, {row_id:row_id});
+            $.extend(arr, {table_name:table_name});
+
+            //out put to show
+        <!-- $('.post_msg').html('<pre class="bg-success">'+JSON.stringify(arr, null, 2)+'</pre>'); -->
+        });
+        //--->save single field data > end
+
+        //--->button > edit > start
+        $(document).on('click', '.btn_edit', function(event)
+        {
+            event.preventDefault();
+            var tbl_row = $(this).closest('tr');
+
+            var row_id = tbl_row.attr('row_id');
+
+            tbl_row.find('.btn_save').show();
+            tbl_row.find('.btn_cancel').show();
+
+            //hide edit button
+            tbl_row.find('.btn_edit').hide();
+
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('contenteditable', 'true')
+                .attr('edit_type', 'button')
+                .addClass('bg-warning')
+                .css('padding', '3px');
+
+            //--->add the original entry > start
+            tbl_row.find('.row_data').each(function(index, val)
+            {
+                // this will help in case user decided to click on cancel button
+                $(this).attr('original_entry', $(this).html());
+            });
+            //--->add the original entry > end
+        });
+        //--->button > edit > end
+
+        //--->button > cancel > start
+        $(document).on('click', '.btn_cancel', function(event)
+        {
+            event.preventDefault();
+
+            var tbl_row = $(this).closest('tr');
+
+            var row_id = tbl_row.attr('row_id');
+
+            //hide save and cancel buttons
+            tbl_row.find('.btn_save').hide();
+            tbl_row.find('.btn_cancel').hide();
+
+            //show edit button
+            tbl_row.find('.btn_edit').show();
+
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('edit_type', 'click')
+                .removeClass('bg-warning')
+                .css('padding','');
+
+            tbl_row.find('.row_data').each(function(index, val)
+            {
+                $(this).html( $(this).attr('original_entry') );
+            });
+        });
+        //--->button > cancel > end
+
+        //--->save whole row entry > start
+        $(document).on('click', '.btn_save', function(event)
+        {
+            event.preventDefault();
+            var tbl_row = $(this).closest('tr');
+
+            var row_id = tbl_row.attr('row_id');
+            var table_name = $(this).closest('tr').attr('table_name');
+
+            //hide save and cancel buttons
+            tbl_row.find('.btn_save').hide();
+            tbl_row.find('.btn_cancel').hide();
+
+            //show edit button
+            tbl_row.find('.btn_edit').show();
+
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('edit_type', 'click')
+                .removeClass('bg-warning')
+                .css('padding','');
+
+            //--->get row data > start
+            var arr = {};
+            tbl_row.find('.row_data').each(function(index, val)
+            {
+                var col_name = $(this).attr('col_name');
+                var col_val = $(this).html();
+                arr[col_name] = col_val;
+            });
+            //--->get row data > end
+
+            //use the "arr" object for your ajax call
+            $.extend(arr, {row_id:row_id});
+            $.extend(arr, {table_name:table_name});
+
+            //out put to show
+        <!-- $('.post_msg').html('<pre class="bg-success">'+JSON.stringify(arr, null, 2) +'</pre>'); -->
+        });
+
+    </script>
+
+    <!--保存页面数据-->
+    <script type="text/javascript">
+
+        const btnCalc = document.getElementById("btnCalc");
+
+        btnCalc.onclick = function() {
+
+            const mil_table = document.getElementById("mil table");
+            const fe_table =document.getElementById("fe table");
+            const ev_table = document.getElementById("ev table");
+
+
+            var storage = window.localStorage;
+            var in_mil = {
+                // "mil_mil1":mil_table.rows[1].cells[0].innerText,
+                // "mil_mil2":mil_table.rows[2].cells[0].innerText,
+                // "mil_mil3":mil_table.rows[3].cells[0].innerText,
+                // "mil_mil4":mil_table.rows[4].cells[0].innerText,
+                // "mil_mil5":mil_table.rows[5].cells[0].innerText,
+                // "mil_mil6":mil_table.rows[6].cells[0].innerText,
+                "mil_pv1":mil_table.rows[1].cells[1].innerText,
+                "mil_pv2":mil_table.rows[2].cells[1].innerText,
+                "mil_pv3":mil_table.rows[3].cells[1].innerText,
+                "mil_pv4":mil_table.rows[4].cells[1].innerText,
+                "mil_pv5":mil_table.rows[5].cells[1].innerText,
+                "mil_pv6":mil_table.rows[6].cells[1].innerText,
+                "mil_pv7":mil_table.rows[7].cells[1].innerText,
+                "mil_taxi1":mil_table.rows[1].cells[2].innerText,
+                "mil_taxi2":mil_table.rows[2].cells[2].innerText,
+                "mil_taxi3":mil_table.rows[3].cells[2].innerText,
+                "mil_taxi4":mil_table.rows[4].cells[2].innerText,
+                "mil_taxi5":mil_table.rows[5].cells[2].innerText,
+                "mil_taxi6":mil_table.rows[6].cells[2].innerText,
+                "mil_taxi7":mil_table.rows[7].cells[2].innerText,
+                "mil_ldt1":mil_table.rows[1].cells[3].innerText,
+                "mil_ldt2":mil_table.rows[2].cells[3].innerText,
+                "mil_ldt3":mil_table.rows[3].cells[3].innerText,
+                "mil_ldt4":mil_table.rows[4].cells[3].innerText,
+                "mil_ldt5":mil_table.rows[5].cells[3].innerText,
+                "mil_ldt6":mil_table.rows[6].cells[3].innerText,
+                "mil_ldt7":mil_table.rows[7].cells[3].innerText,
+                "mil_urbanBus1":mil_table.rows[1].cells[4].innerText,
+                "mil_urbanBus2":mil_table.rows[2].cells[4].innerText,
+                "mil_urbanBus3":mil_table.rows[3].cells[4].innerText,
+                "mil_urbanBus4":mil_table.rows[4].cells[4].innerText,
+                "mil_urbanBus5":mil_table.rows[5].cells[4].innerText,
+                "mil_urbanBus6":mil_table.rows[6].cells[4].innerText,
+                "mil_urbanBus7":mil_table.rows[7].cells[4].innerText,
+                "mil_roadBus1":mil_table.rows[1].cells[5].innerText,
+                "mil_roadBus2":mil_table.rows[2].cells[5].innerText,
+                "mil_roadBus3":mil_table.rows[3].cells[5].innerText,
+                "mil_roadBus4":mil_table.rows[4].cells[5].innerText,
+                "mil_roadBus5":mil_table.rows[5].cells[5].innerText,
+                "mil_roadBus6":mil_table.rows[6].cells[5].innerText,
+                "mil_roadBus7":mil_table.rows[7].cells[5].innerText,
+                "mil_hdv1":mil_table.rows[1].cells[6].innerText,
+                "mil_hdv2":mil_table.rows[2].cells[6].innerText,
+                "mil_hdv3":mil_table.rows[3].cells[6].innerText,
+                "mil_hdv4":mil_table.rows[4].cells[6].innerText,
+                "mil_hdv5":mil_table.rows[5].cells[6].innerText,
+                "mil_hdv6":mil_table.rows[6].cells[6].innerText,
+                "mil_hdv7":mil_table.rows[7].cells[6].innerText
+            }
+
+
+            var in_fe ={
+                // "fe_numbers1":fe_table.rows[1].cells[0].innerText,
+                // "fe_numbers2":fe_table.rows[2].cells[0].innerText,
+                // "fe_numbers3":fe_table.rows[3].cells[0].innerText,
+                // "fe_numbers4":fe_table.rows[4].cells[0].innerText,
+                // "fe_numbers5":fe_table.rows[5].cells[0].innerText,
+                "fe_pv1":fe_table.rows[1].cells[1].innerText,
+                "fe_pv2":fe_table.rows[2].cells[1].innerText,
+                "fe_pv3":fe_table.rows[3].cells[1].innerText,
+                "fe_pv4":fe_table.rows[4].cells[1].innerText,
+                "fe_pv5":fe_table.rows[5].cells[1].innerText,
+                "fe_taxi1":fe_table.rows[1].cells[2].innerText,
+                "fe_taxi2":fe_table.rows[2].cells[2].innerText,
+                "fe_taxi3":fe_table.rows[3].cells[2].innerText,
+                "fe_taxi4":fe_table.rows[4].cells[2].innerText,
+                "fe_taxi5":fe_table.rows[5].cells[2].innerText,
+                "fe_ldt1":fe_table.rows[1].cells[3].innerText,
+                "fe_ldt2":fe_table.rows[2].cells[3].innerText,
+                "fe_ldt3":fe_table.rows[3].cells[3].innerText,
+                "fe_ldt4":fe_table.rows[4].cells[3].innerText,
+                "fe_ldt5":fe_table.rows[5].cells[3].innerText,
+                "fe_urbanBus1":fe_table.rows[1].cells[4].innerText,
+                "fe_urbanBus2":fe_table.rows[2].cells[4].innerText,
+                "fe_urbanBus3":fe_table.rows[3].cells[4].innerText,
+                "fe_urbanBus4":fe_table.rows[4].cells[4].innerText,
+                "fe_urbanBus5":fe_table.rows[5].cells[4].innerText,
+                "fe_roadBus1":fe_table.rows[1].cells[5].innerText,
+                "fe_roadBus2":fe_table.rows[2].cells[5].innerText,
+                "fe_roadBus3":fe_table.rows[3].cells[5].innerText,
+                "fe_roadBus4":fe_table.rows[4].cells[5].innerText,
+                "fe_roadBus5":fe_table.rows[5].cells[5].innerText,
+                "fe_hdv1":fe_table.rows[1].cells[6].innerText,
+                "fe_hdv2":fe_table.rows[2].cells[6].innerText,
+                "fe_hdv3":fe_table.rows[3].cells[6].innerText,
+                "fe_hdv4":fe_table.rows[4].cells[6].innerText,
+                "fe_hdv5":fe_table.rows[5].cells[6].innerText,
+            }
+
+            var in_ev = {
+                "ev_ev1":ev_table.rows[1].cells[0].innerText,
+                "ev_ev2":ev_table.rows[2].cells[0].innerText,
+                "ev_ev3":ev_table.rows[3].cells[0].innerText,
+                "ev_ev4":ev_table.rows[4].cells[0].innerText,
+                "ev_ev5":ev_table.rows[5].cells[0].innerText,
+                "ev_ev6":ev_table.rows[6].cells[0].innerText,
+                "ev_pv1":ev_table.rows[1].cells[1].innerText,
+                "ev_pv2":ev_table.rows[2].cells[1].innerText,
+                "ev_pv3":ev_table.rows[3].cells[1].innerText,
+                "ev_pv4":ev_table.rows[4].cells[1].innerText,
+                "ev_pv5":ev_table.rows[5].cells[1].innerText,
+                "ev_pv6":ev_table.rows[6].cells[1].innerText,
+                "ev_taxi1":ev_table.rows[1].cells[2].innerText,
+                "ev_taxi2":ev_table.rows[2].cells[2].innerText,
+                "ev_taxi3":ev_table.rows[3].cells[2].innerText,
+                "ev_taxi4":ev_table.rows[4].cells[2].innerText,
+                "ev_taxi5":ev_table.rows[5].cells[2].innerText,
+                "ev_taxi6":ev_table.rows[6].cells[2].innerText,
+                "ev_urbanBus1":ev_table.rows[1].cells[3].innerText,
+                "ev_urbanBus2":ev_table.rows[2].cells[3].innerText,
+                "ev_urbanBus3":ev_table.rows[3].cells[3].innerText,
+                "ev_urbanBus4":ev_table.rows[4].cells[3].innerText,
+                "ev_urbanBus5":ev_table.rows[5].cells[3].innerText,
+                "ev_urbanBus6":ev_table.rows[6].cells[3].innerText,
+                "ev_roadBus1":ev_table.rows[1].cells[4].innerText,
+                "ev_roadBus2":ev_table.rows[2].cells[4].innerText,
+                "ev_roadBus3":ev_table.rows[3].cells[4].innerText,
+                "ev_roadBus4":ev_table.rows[4].cells[4].innerText,
+                "ev_roadBus5":ev_table.rows[5].cells[4].innerText,
+                "ev_roadBus6":ev_table.rows[6].cells[4].innerText,
+                "ev_ldt1":ev_table.rows[1].cells[5].innerText,
+                "ev_ldt2":ev_table.rows[2].cells[5].innerText,
+                "ev_ldt3":ev_table.rows[3].cells[5].innerText,
+                "ev_ldt4":ev_table.rows[4].cells[5].innerText,
+                "ev_ldt5":ev_table.rows[5].cells[5].innerText,
+                "ev_ldt6":ev_table.rows[6].cells[5].innerText,
+                "ev_hdts1":ev_table.rows[1].cells[6].innerText,
+                "ev_hdts2":ev_table.rows[2].cells[6].innerText,
+                "ev_hdts3":ev_table.rows[3].cells[6].innerText,
+                "ev_hdts4":ev_table.rows[4].cells[6].innerText,
+                "ev_hdts5":ev_table.rows[5].cells[6].innerText,
+                "ev_hdts6":ev_table.rows[6].cells[6].innerText,
+                "ev_hdt1":ev_table.rows[1].cells[7].innerText,
+                "ev_hdt2":ev_table.rows[2].cells[7].innerText,
+                "ev_hdt3":ev_table.rows[3].cells[7].innerText,
+                "ev_hdt4":ev_table.rows[4].cells[7].innerText,
+                "ev_hdt5":ev_table.rows[5].cells[7].innerText,
+                "ev_hdt6":ev_table.rows[6].cells[7].innerText
+
+            }
+
+            var mil = JSON.stringify(in_mil);
+            storage.setItem("inventory_mil",mil);
+            var fe = JSON.stringify(in_fe);
+            storage.setItem("inventory_fe",fe);
+            var ev = JSON.stringify(in_ev);
+            storage.setItem("inventory_ev",ev);
+
+            window.alert("保存成功")
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.HdtMapper">
+  <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.Hdt">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cityid" jdbcType="INTEGER" property="cityid" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="economic_growth" jdbcType="DOUBLE" property="economicGrowth" />
+    <result column="trackor_growth" jdbcType="DOUBLE" property="trackorGrowth" />
+    <result column="straight_truck_growth" jdbcType="DOUBLE" property="straightTruckGrowth" />
+    <result column="trackor_stock" jdbcType="DOUBLE" property="trackorStock" />
+    <result column="trackor_sale" jdbcType="DOUBLE" property="trackorSale" />
+    <result column="straight_truck_stock" jdbcType="DOUBLE" property="straightTruckStock" />
+    <result column="straight_truck_sale" jdbcType="DOUBLE" property="straightTruckSale" />
+    <result column="HDT_stock" jdbcType="DOUBLE" property="hdtStock" />
+    <result column="HDT_sale" jdbcType="DOUBLE" property="hdtSale" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cityid, year, economic_growth, trackor_growth, straight_truck_growth, trackor_stock,
+    trackor_sale, straight_truck_stock, straight_truck_sale, HDT_stock, HDT_sale
+  </sql>
+  <select id="selectHdtByfk" resultMap="BaseResultMap">
+    select id,year, economic_growth, trackor_growth, straight_truck_growth, trackor_stock,
+    trackor_sale, straight_truck_stock, straight_truck_sale, HDT_stock, HDT_sale from hdt where cityid = #{cityid}
+  </select>
+  <select id="selectHdt" resultMap="BaseResultMap">
+    select id,year, economic_growth, trackor_growth, straight_truck_growth, trackor_stock,
+    trackor_sale, straight_truck_stock, straight_truck_sale, HDT_stock, HDT_sale from hdt
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hdt
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hdt
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhihuilvxing.domain.Hdt">
+    insert into hdt (id, ctiy, year, 
+      economic_growth, trackor_growth, straight_truck_growth, 
+      trackor_stock, trackor_sale, straight_truck_stock, 
+      straight_truck_sale, HDT_stock, HDT_sale
+      )
+    values (#{id,jdbcType=INTEGER}, #{ctiy,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, 
+      #{economicGrowth,jdbcType=DOUBLE}, #{trackorGrowth,jdbcType=DOUBLE}, #{straightTruckGrowth,jdbcType=DOUBLE}, 
+      #{trackorStock,jdbcType=DOUBLE}, #{trackorSale,jdbcType=DOUBLE}, #{straightTruckStock,jdbcType=DOUBLE}, 
+      #{straightTruckSale,jdbcType=DOUBLE}, #{hdtStock,jdbcType=DOUBLE}, #{hdtSale,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhihuilvxing.domain.Hdt">
+    insert into hdt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ctiy != null">
+        ctiy,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="economicGrowth != null">
+        economic_growth,
+      </if>
+      <if test="trackorGrowth != null">
+        trackor_growth,
+      </if>
+      <if test="straightTruckGrowth != null">
+        straight_truck_growth,
+      </if>
+      <if test="trackorStock != null">
+        trackor_stock,
+      </if>
+      <if test="trackorSale != null">
+        trackor_sale,
+      </if>
+      <if test="straightTruckStock != null">
+        straight_truck_stock,
+      </if>
+      <if test="straightTruckSale != null">
+        straight_truck_sale,
+      </if>
+      <if test="hdtStock != null">
+        HDT_stock,
+      </if>
+      <if test="hdtSale != null">
+        HDT_sale,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ctiy != null">
+        #{ctiy,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="economicGrowth != null">
+        #{economicGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="trackorGrowth != null">
+        #{trackorGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="straightTruckGrowth != null">
+        #{straightTruckGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="trackorStock != null">
+        #{trackorStock,jdbcType=DOUBLE},
+      </if>
+      <if test="trackorSale != null">
+        #{trackorSale,jdbcType=DOUBLE},
+      </if>
+      <if test="straightTruckStock != null">
+        #{straightTruckStock,jdbcType=DOUBLE},
+      </if>
+      <if test="straightTruckSale != null">
+        #{straightTruckSale,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtStock != null">
+        #{hdtStock,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtSale != null">
+        #{hdtSale,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhihuilvxing.domain.Hdt">
+    update hdt
+    <set>
+      <if test="ctiy != null">
+        ctiy = #{ctiy,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="economicGrowth != null">
+        economic_growth = #{economicGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="trackorGrowth != null">
+        trackor_growth = #{trackorGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="straightTruckGrowth != null">
+        straight_truck_growth = #{straightTruckGrowth,jdbcType=DOUBLE},
+      </if>
+      <if test="trackorStock != null">
+        trackor_stock = #{trackorStock,jdbcType=DOUBLE},
+      </if>
+      <if test="trackorSale != null">
+        trackor_sale = #{trackorSale,jdbcType=DOUBLE},
+      </if>
+      <if test="straightTruckStock != null">
+        straight_truck_stock = #{straightTruckStock,jdbcType=DOUBLE},
+      </if>
+      <if test="straightTruckSale != null">
+        straight_truck_sale = #{straightTruckSale,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtStock != null">
+        HDT_stock = #{hdtStock,jdbcType=DOUBLE},
+      </if>
+      <if test="hdtSale != null">
+        HDT_sale = #{hdtSale,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhihuilvxing.domain.Hdt">
+    update hdt
+    set ctiy = #{ctiy,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      economic_growth = #{economicGrowth,jdbcType=DOUBLE},
+      trackor_growth = #{trackorGrowth,jdbcType=DOUBLE},
+      straight_truck_growth = #{straightTruckGrowth,jdbcType=DOUBLE},
+      trackor_stock = #{trackorStock,jdbcType=DOUBLE},
+      trackor_sale = #{trackorSale,jdbcType=DOUBLE},
+      straight_truck_stock = #{straightTruckStock,jdbcType=DOUBLE},
+      straight_truck_sale = #{straightTruckSale,jdbcType=DOUBLE},
+      HDT_stock = #{hdtStock,jdbcType=DOUBLE},
+      HDT_sale = #{hdtSale,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhihuilvxing.dao.HdtsurMapper">
+  <resultMap id="BaseResultMap" type="com.zhihuilvxing.domain.Hdtsur">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cityid" jdbcType="INTEGER" property="cityid" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="survival" jdbcType="DOUBLE" property="survival" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cityid, year, survival
+  </sql>
+  <select id="selectHdtsurByfk" resultMap="BaseResultMap">
+    select  id, year, survival FROM hdtsur where cityid = #{cityid}
+  </select>
+
+  <select id="selectHdtsur" resultMap="BaseResultMap">
+    select id, year, survival FROM hdtsur
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hdtsur
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hdtsur
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhihuilvxing.domain.Hdtsur">
+    insert into hdtsur (id, cityid, year, 
+      survival)
+    values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, 
+      #{survival,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhihuilvxing.domain.Hdtsur">
+    insert into hdtsur
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cityid != null">
+        cityid,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="survival != null">
+        survival,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cityid != null">
+        #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="survival != null">
+        #{survival,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhihuilvxing.domain.Hdtsur">
+    update hdtsur
+    <set>
+      <if test="cityid != null">
+        cityid = #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="survival != null">
+        survival = #{survival,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhihuilvxing.domain.Hdtsur">
+    update hdtsur
+    set cityid = #{cityid,jdbcType=INTEGER},
+      year = #{year,jdbcType=INTEGER},
+      survival = #{survival,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
