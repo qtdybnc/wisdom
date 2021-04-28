@@ -9,7 +9,7 @@ services:                        #控制image的运行方式
     depends_on:                  #依赖于mysql和redis，目的是为了在mysql和redis启动之后再启动本容器
       - mysql
     ports:
-      - "8080:8080"              #冒号左边的8888代表宿主机中的端口，右边的8080代表容器中的端口
+      - "7791:8080"              #冒号左边的8888代表宿主机中的端口，右边的8080代表容器中的端口
 
   mysql:
     build: mysql
@@ -17,7 +17,7 @@ services:                        #控制image的运行方式
     container_name: mysql-ssm
     restart: always
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
     environment:                #在mysql初始化的时候设置登陆密码
       MYSQL_ROOT_PASSWORD: "192717"
